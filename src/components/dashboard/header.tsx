@@ -38,7 +38,7 @@ export default async function Header() {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                            <Link href="#">Orders</Link>
+                            <Link href="#">Generar Cotización</Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />

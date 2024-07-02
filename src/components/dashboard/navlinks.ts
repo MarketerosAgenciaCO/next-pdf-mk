@@ -8,7 +8,7 @@ export const navLinks = [
     },
     {
         name: 'Cotizaciones',
-        href: 'quotes',
+        href: '/dashboard/quotes',
         icon: FileText,
     },
     {

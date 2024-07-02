@@ -1,19 +1,3 @@
-// import { auth } from '@/auth'
-// import { SignOut } from '@/components/sign-out'
-
-// export default async function Dashboard() {
-//     const session = await auth()
-//     if (!session) return <div>Not signed in</div>
-
-//     return (
-//         <div>
-//             <pre>{JSON.stringify(session, null, 2)}</pre>
-//             <SignOut />
-//         </div>
-
-//     )
-// }
-
 import {
     ChevronLeft,
     ChevronRight,
@@ -61,6 +45,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import Link from 'next/link'
 
 export default function Dashboard() {
     return (
@@ -72,24 +57,27 @@ export default function Dashboard() {
                         x-chunk="dashboard-05-chunk-0"
                     >
                         <CardHeader className="pb-3">
-                            <CardTitle>Your Orders</CardTitle>
+                            <CardTitle>Tus cotizaciones</CardTitle>
                             <CardDescription className="max-w-lg text-balance leading-relaxed">
-                                Introducing Our Dynamic Orders Dashboard for
-                                Seamless Management and Insightful Analysis.
+                                Crea cotizaciones dinamicas y exportalas en pdf.
                             </CardDescription>
                         </CardHeader>
                         <CardFooter>
-                            <Button>Create New Order</Button>
+                            <Button asChild>
+                                <Link href="/dashboard/quotes">
+                                    Crear nueva cotización
+                                </Link>
+                            </Button>
                         </CardFooter>
                     </Card>
                     <Card x-chunk="dashboard-05-chunk-1">
                         <CardHeader className="pb-2">
-                            <CardDescription>This Week</CardDescription>
+                            <CardDescription>Esta Semana</CardDescription>
                             <CardTitle className="text-4xl">$1,329</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-xs text-muted-foreground">
-                                +25% from last week
+                                +25% desde la semana pasada
                             </div>
                         </CardContent>
                         <CardFooter>
@@ -98,12 +86,12 @@ export default function Dashboard() {
                     </Card>
                     <Card x-chunk="dashboard-05-chunk-2">
                         <CardHeader className="pb-2">
-                            <CardDescription>This Month</CardDescription>
+                            <CardDescription>Este mes</CardDescription>
                             <CardTitle className="text-4xl">$5,329</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-xs text-muted-foreground">
-                                +10% from last month
+                                +10% desde el mes pasado
                             </div>
                         </CardContent>
                         <CardFooter>
@@ -114,9 +102,9 @@ export default function Dashboard() {
                 <Tabs defaultValue="week">
                     <div className="flex items-center">
                         <TabsList>
-                            <TabsTrigger value="week">Week</TabsTrigger>
-                            <TabsTrigger value="month">Month</TabsTrigger>
-                            <TabsTrigger value="year">Year</TabsTrigger>
+                            <TabsTrigger value="week">Mes</TabsTrigger>
+                            <TabsTrigger value="month">Semana</TabsTrigger>
+                            <TabsTrigger value="year">Año</TabsTrigger>
                         </TabsList>
                         <div className="ml-auto flex items-center gap-2">
                             <DropdownMenu>
@@ -128,13 +116,13 @@ export default function Dashboard() {
                                     >
                                         <ListFilter className="h-3.5 w-3.5" />
                                         <span className="sr-only sm:not-sr-only">
-                                            Filter
+                                            Filtrar
                                         </span>
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                     <DropdownMenuLabel>
-                                        Filter by
+                                        Filtrar por
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuCheckboxItem checked>
@@ -163,27 +151,27 @@ export default function Dashboard() {
                     <TabsContent value="week">
                         <Card x-chunk="dashboard-05-chunk-3">
                             <CardHeader className="px-7">
-                                <CardTitle>Orders</CardTitle>
+                                <CardTitle>Cotizaciones</CardTitle>
                                 <CardDescription>
-                                    Recent orders from your store.
+                                    Cotizaciones recientes
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <Table>
                                     <TableHeader>
                                         <TableRow>
-                                            <TableHead>Customer</TableHead>
+                                            <TableHead>Cliente</TableHead>
                                             <TableHead className="hidden sm:table-cell">
-                                                Type
+                                                Tipo
                                             </TableHead>
                                             <TableHead className="hidden sm:table-cell">
                                                 Status
                                             </TableHead>
                                             <TableHead className="hidden md:table-cell">
-                                                Date
+                                                Fecha
                                             </TableHead>
                                             <TableHead className="text-right">
-                                                Amount
+                                                Precio
                                             </TableHead>
                                         </TableRow>
                                     </TableHeader>
