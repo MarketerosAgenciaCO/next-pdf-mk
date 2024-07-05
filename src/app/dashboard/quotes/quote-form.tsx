@@ -71,25 +71,23 @@ export default function QuoteForm() {
 
     return (
         <>
-            <div className="space-y-8 col-span-2 relative ">
-                <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-8"
-                    >
-                        <ClientInfo />
-                        <ProyectType />
-                        <Specifications setTotalPrice={setTotalPrice} />
-                        <Button type="submit" disabled={isLoading}>
-                            {isLoading ? (
-                                <Loader className="animate-spin h-5 w-5" />
-                            ) : (
-                                'Generar Cotización'
-                            )}
-                        </Button>
-                    </form>
-                </Form>
-            </div>
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                >
+                    <ClientInfo />
+                    <ProyectType />
+                    <Specifications setTotalPrice={setTotalPrice} />
+                    <Button type="submit" disabled={isLoading}>
+                        {isLoading ? (
+                            <Loader className="animate-spin h-5 w-5" />
+                        ) : (
+                            'Generar Cotización'
+                        )}
+                    </Button>
+                </form>
+            </Form>
         </>
     )
 }

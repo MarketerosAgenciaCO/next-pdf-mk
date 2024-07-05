@@ -20,10 +20,12 @@ const tipoProyecto = [
     {
         name: 'Tienda en Línea',
         value: 'tienda',
+        disabled: true,
     },
     {
         name: 'Diseño Web',
         value: 'disenoWeb',
+        disabled: false,
     },
 ]
 
@@ -64,9 +66,18 @@ export default function ProyectType() {
                                                             value={
                                                                 proyecto.value
                                                             }
+                                                            disabled={
+                                                                proyecto.disabled
+                                                            }
                                                         />
                                                     </FormControl>
-                                                    <FormLabel className="font-normal">
+                                                    <FormLabel
+                                                        className={
+                                                            proyecto.disabled
+                                                                ? 'cursor-not-allowed'
+                                                                : ''
+                                                        }
+                                                    >
                                                         {proyecto.name}
                                                     </FormLabel>
                                                 </FormItem>
