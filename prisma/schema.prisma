@@ -23,10 +23,23 @@ model User {
 }
 
 model Quote {
-  id        String @id @default(cuid())
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  user      User @relation(fields: [userId], references: [id])
+  id                  String    @id @default(cuid())
+  nombre              String
+  apellido            String
+  nombreProyecto      String
+  sitioWeb            String
+  numeroPaginas       Int
+  adicionales         String[]
+  cantidadCatalogo    String?
+  descripcionCatalogo String?
+  precioFormulario    Float?    @default(0)
+  cantidadIdioma      Int?
+  descripcionIdioma   String?
+  precioDesarrolloEspecial Float? @default(0)
+  descripcionDesarrolloEspecial String?
+  totalPrice          Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  userId              String
+  user                User      @relation(fields: [userId], references: [id])
 }
