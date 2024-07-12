@@ -4,6 +4,9 @@ import html2canvas from 'html2canvas'
 
 import { PortadaPDF } from '@/components/pdfPages/portada'
 import { TrayectoriaPDF } from '@/components/pdfPages/trayectoria'
+import { PresenciaPDF } from '@/components/pdfPages/presencia'
+import { QuienesSomosPDF } from '@/components/pdfPages/quienes-somos'
+import { FasesDisenoPDF } from '@/components/pdfPages/fases-diseno'
 
 export default function PdfGenerator() {
     const generatePDF = async () => {
@@ -12,12 +15,15 @@ export default function PdfGenerator() {
         const pages = [
             document.getElementById('page1'),
             document.getElementById('page2'),
+            document.getElementById('page3'),
+            document.getElementById('page4'),
+            document.getElementById('page5'),
         ]
         for (let i = 0; i < pages.length; i++) {
             const page = pages[i]
             if (page) {
                 const canvas = await html2canvas(page, {
-                    scale: 1,
+                    scale: 1.2,
                 })
                 const imageData = canvas.toDataURL('image/png')
 
@@ -51,6 +57,33 @@ export default function PdfGenerator() {
                 }}
             >
                 <TrayectoriaPDF />
+            </div>
+            <div
+                id="page3"
+                style={{
+                    width: '297mm',
+                    height: '210mm',
+                }}
+            >
+                <PresenciaPDF />
+            </div>
+            <div
+                id="page4"
+                style={{
+                    width: '297mm',
+                    height: '210mm',
+                }}
+            >
+                <QuienesSomosPDF />
+            </div>
+            <div
+                id="page5"
+                style={{
+                    width: '297mm',
+                    height: '210mm',
+                }}
+            >
+                <FasesDisenoPDF />
             </div>
         </>
     )
