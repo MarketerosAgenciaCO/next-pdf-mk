@@ -27,7 +27,7 @@ model Quote {
   nombre              String
   apellido            String
   nombreProyecto      String
-  sitioWeb            String
+  sitioWeb            String?
   numeroPaginas       Int
   adicionales         String[]
   cantidadCatalogo    String?
@@ -42,4 +42,16 @@ model Quote {
   updatedAt           DateTime @updatedAt
   userId              String
   user                User      @relation(fields: [userId], references: [id])
+}
+
+model Prices {
+  id                          String  @id @default(cuid())
+  pricePagesBasePrice         Int
+  pricePagesIncrementPerPage  Int
+  priceCatalogoBasePrice      Int
+  priceCatalogoIncrementPerPage Int
+  migracionNoticiasBlog       Int
+  subirProductoCatalogoBasico Int
+  subirProductoCatalogoVariable Int
+  incrementoPorIdioma         Float
 }

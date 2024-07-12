@@ -5,11 +5,11 @@ import QuienesSomosCirculo from '../../../public/pdf/quienes-somos-circulo.jpg'
 export function QuienesSomosPDF() {
     return (
         <div
-            style={{
-                width: '297mm',
-                height: '210mm',
-            }}
-            className="relative grid grid-cols-2 gap-5 bg-white items-center justify-center p-10"
+            // style={{
+            //     width: '297mm',
+            //     height: '210mm',
+            // }}
+            className="relative grid grid-cols-2 gap-5 bg-white items-center justify-center p-10 page"
         >
             <div>
                 <h2 className="text-4xl font-bold pb-4  text-[#294859]">

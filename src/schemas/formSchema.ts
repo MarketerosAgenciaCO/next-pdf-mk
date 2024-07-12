@@ -6,7 +6,7 @@ export const formSchema = z.object({
     nombreProyecto: z
         .string()
         .min(1, { message: 'Por favor, escribe el nombre del proyecto' }),
-    sitioWeb: z.string().min(1, { message: 'Por favor, escribe tu sitio web' }),
+    sitioWeb: z.string().optional(),
     tipoProjecto: z.string().min(1, { message: 'Por favor, elige un tipo' }),
     numeroPaginas: z.preprocess(
         (value) => Number(value),
@@ -63,4 +63,44 @@ export const formSchema = z.object({
         .nullable(),
     descripcionDesarrolloEspecial: z.string().optional(),
     totalPrice: z.number(),
+})
+
+// export const priceSchema = z.object({
+//     priceId: z.string(),
+//     pricePagesBasePrice: z.number().min(0, {
+//         message: 'Por favor, escribe el precio base',
+//     }),
+//     pricePagesIncrementPerPage: z.number().min(0, {
+//         message: 'Por favor, escribe el incremento',
+//     }),
+//     priceCatalogoBasePrice: z.number().min(0, {
+//         message: 'Por favor, escribe el precio base',
+//     }),
+//     priceCatalogoIncrementPerPage: z.number().min(0, {
+//         message: 'Por favor, escribe el incremento',
+//     }),
+//     migracionNoticiasBlog: z.number().min(0, {
+//         message: 'Por favor, escribe el valor',
+//     }),
+//     subirProductoCatalogoBasico: z.number().min(0, {
+//         message: 'Por favor, escribe el valor',
+//     }),
+//     subirProductoCatalogoVariable: z.number().min(0, {
+//         message: 'Por favor, escribe el valor',
+//     }),
+//     incrementoPorIdioma: z.number().min(0, {
+//         message: 'Por favor, escribe el porcentaje',
+//     }),
+// })
+
+export const priceSchema = z.object({
+    priceId: z.string(),
+    pricePagesBasePrice: z.number().optional(),
+    pricePagesIncrementPerPage: z.number().optional(),
+    priceCatalogoBasePrice: z.number().optional(),
+    priceCatalogoIncrementPerPage: z.number().optional(),
+    migracionNoticiasBlog: z.number().optional(),
+    subirProductoCatalogoBasico: z.number().optional(),
+    subirProductoCatalogoVariable: z.number().optional(),
+    incrementoPorIdioma: z.number().optional(),
 })

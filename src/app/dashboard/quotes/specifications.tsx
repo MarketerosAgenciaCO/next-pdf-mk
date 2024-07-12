@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 
-import { priceConfig } from '@/config/config'
+// import { priceConfig } from '@/config/config'
 
 const adicionales = [
     {
@@ -66,32 +66,27 @@ const adicionales = [
     },
 ] as const
 
-const calculatePricePages = (numPages: number): number => {
-    const { basePrice, incrementPerPage } = priceConfig.pricePages
-
-    return basePrice + (numPages - 1) * incrementPerPage
+interface Prices {
+    id: string
+    pricePagesBasePrice: number
+    pricePagesIncrementPerPage: number
+    priceCatalogoBasePrice: number
+    priceCatalogoIncrementPerPage: number
+    migracionNoticiasBlog: number
+    subirProductoCatalogoBasico: number
+    subirProductoCatalogoVariable: number
+    incrementoPorIdioma: number
 }
 
-const calculatePriceCatalogo = (numPages: number): number => {
-    const { basePrice, incrementPerPage } = priceConfig.priceCatalogo
-
-    return basePrice + (numPages - 1) * incrementPerPage
-}
-
-const calculateIdiomaAdicional = (
-    totalPrice: number,
-    numIdiomas: number
-): number => {
-    const { incrementoPorIdioma } = priceConfig.idiomaAdicional // Incremento del 30% por cada idioma adicional
-
-    return totalPrice + totalPrice * incrementoPorIdioma * numIdiomas
+interface SpecificationsProps {
+    prices: Prices
+    setTotalPrice: (price: number) => void
 }
 
 export default function Specifications({
+    prices,
     setTotalPrice,
-}: {
-    setTotalPrice: (price: number) => void
-}) {
+}: SpecificationsProps) {
     const { control, watch } = useFormContext()
     const [price, setPrice] = useState(0)
 
@@ -101,6 +96,32 @@ export default function Specifications({
     const cantidadCatalogo = watch('cantidadCatalogo', 0)
     const cantidadIdiomas = watch('cantidadIdioma', 0)
     const precioDesarrolloEspecial = watch('precioDesarrolloEspecial', 0)
+
+    const calculatePricePages = (numPages: number): number => {
+        // const { basePrice, incrementPerPage } = priceConfig.pricePages
+        const basePrice = prices.pricePagesBasePrice
+        const incrementPerPage = prices.pricePagesIncrementPerPage
+
+        return basePrice + (numPages - 1) * incrementPerPage
+    }
+
+    const calculatePriceCatalogo = (numPages: number): number => {
+        // const { basePrice, incrementPerPage } = priceConfig.priceCatalogo
+
+        const basePrice = prices.priceCatalogoBasePrice
+        const incrementPerPage = prices.priceCatalogoIncrementPerPage
+
+        return basePrice + (numPages - 1) * incrementPerPage
+    }
+
+    const calculateIdiomaAdicional = (
+        totalPrice: number,
+        numIdiomas: number
+    ): number => {
+        const incrementoPorIdioma = prices.incrementoPorIdioma // Incremento del 30% por cada idioma adicional
+
+        return totalPrice + totalPrice * incrementoPorIdioma * numIdiomas
+    }
 
     useEffect(() => {
         let totalPrice = calculatePricePages(numeroPaginas)
@@ -114,17 +135,15 @@ export default function Specifications({
         }
 
         if (selectedAdicionales.includes('migracion-noticias-blog')) {
-            totalPrice += priceConfig.additionalFeatures.migracionNoticiasBlog
+            totalPrice += prices.migracionNoticiasBlog
         }
 
         if (selectedAdicionales.includes('subir-producto-catalogo-basico')) {
-            totalPrice +=
-                priceConfig.additionalFeatures.subirProductoCatalogoBasico
+            totalPrice += prices.subirProductoCatalogoBasico
         }
 
         if (selectedAdicionales.includes('subir-producto-catalogo-variable')) {
-            totalPrice +=
-                priceConfig.additionalFeatures.subirProductoCatalogoVariable
+            totalPrice += prices.subirProductoCatalogoVariable
         }
 
         if (selectedAdicionales.includes('idioma-adicional')) {
@@ -137,6 +156,7 @@ export default function Specifications({
 
         setPrice(totalPrice)
         setTotalPrice(totalPrice)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         numeroPaginas,
         precioFormulario,
@@ -145,6 +165,9 @@ export default function Specifications({
         cantidadIdiomas,
         precioDesarrolloEspecial,
         setTotalPrice,
+        calculatePricePages,
+        calculatePriceCatalogo,
+        calculateIdiomaAdicional,
     ])
 
     return (

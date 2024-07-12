@@ -12,28 +12,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async signIn({ user, account, profile }) {
             console.log(user)
 
-            if (user.email?.endsWith('@marketerosagencia.com')) {
-                try {
-                    await prisma.user.upsert({
-                        where: { email: user.email! },
-                        update: {
-                            name: user.name!,
-                            updateAt: new Date(),
-                        },
-                        create: {
-                            email: user.email,
-                            name: user.name!,
-                            createAt: new Date(),
-                        },
-                    })
-                    return true
-                } catch (error) {
-                    console.error('Error al crear el usuario:', error)
-                    return false
-                }
-            } else {
+            try {
+                await prisma.user.upsert({
+                    where: { email: user.email! },
+                    update: {
+                        name: user.name!,
+                        updateAt: new Date(),
+                    },
+                    create: {
+                        email: user.email!,
+                        name: user.name!,
+                        createAt: new Date(),
+                    },
+                })
+                return true
+            } catch (error) {
+                console.error('Error al crear el usuario:', error)
                 return false
             }
+
+            // if (user.email?.endsWith('@marketerosagencia.com')) {
+
+            // } else {
+            //     return false
+            // }
         },
     },
 })

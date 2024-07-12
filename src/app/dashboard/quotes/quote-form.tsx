@@ -12,7 +12,20 @@ import { formSchema } from '@/schemas/formSchema'
 import { createQuote } from '@/app/actions/add-new-quote'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
-export default function QuoteForm() {
+
+interface Prices {
+    id: string
+    pricePagesBasePrice: number
+    pricePagesIncrementPerPage: number
+    priceCatalogoBasePrice: number
+    priceCatalogoIncrementPerPage: number
+    migracionNoticiasBlog: number
+    subirProductoCatalogoBasico: number
+    subirProductoCatalogoVariable: number
+    incrementoPorIdioma: number
+}
+
+export default function QuoteForm({ prices }: { prices: Prices }) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -78,7 +91,10 @@ export default function QuoteForm() {
                 >
                     <ClientInfo />
                     <ProyectType />
-                    <Specifications setTotalPrice={setTotalPrice} />
+                    <Specifications
+                        setTotalPrice={setTotalPrice}
+                        prices={prices}
+                    />
                     <Button type="submit" disabled={isLoading}>
                         {isLoading ? (
                             <Loader className="animate-spin h-5 w-5" />

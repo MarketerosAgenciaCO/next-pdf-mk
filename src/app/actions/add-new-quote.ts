@@ -14,7 +14,7 @@ export async function createQuote(data: z.infer<typeof formSchema>) {
                 nombre: data.nombre,
                 apellido: data.apellido,
                 nombreProyecto: data.nombreProyecto,
-                sitioWeb: data.sitioWeb,
+                sitioWeb: data.sitioWeb!,
                 numeroPaginas: data.numeroPaginas,
                 adicionales: data.adicionales,
                 cantidadCatalogo: data.cantidadCatalogo,

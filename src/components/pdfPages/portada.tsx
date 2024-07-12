@@ -13,10 +13,10 @@ export function PortadaPDF() {
         <div
             style={{
                 backgroundImage: `url(${Portada.src})`,
-                width: '297mm',
-                height: '210mm',
+                // width: '297mm',
+                // height: '210mm',
             }}
-            className="relative bg-slate-900"
+            className="relative bg-slate-900 page"
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Image src={LogoMk} className="w-full" alt="Logo Mk" />
