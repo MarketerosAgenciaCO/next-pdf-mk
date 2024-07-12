@@ -112,11 +112,11 @@ export default function SubirProducto({
                                         <FormControl>
                                             <Input
                                                 value={
-                                                    field.value === 0
-                                                        ? ''
-                                                        : field.value.toLocaleString(
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
                                                               'es-ES'
                                                           )
+                                                        : ''
                                                 }
                                                 className="pl-8"
                                                 onChange={(e) => {
@@ -154,11 +154,11 @@ export default function SubirProducto({
                                         <FormControl>
                                             <Input
                                                 value={
-                                                    field.value === 0
-                                                        ? ''
-                                                        : field.value.toLocaleString(
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
                                                               'es-ES'
                                                           )
+                                                        : ''
                                                 }
                                                 className="pl-8"
                                                 onChange={(e) => {
