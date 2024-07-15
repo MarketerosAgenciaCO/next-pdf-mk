@@ -10,7 +10,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     callbacks: {
         async signIn({ user, account, profile }) {
-            console.log(user)
+            console.log('user', user)
+            console.log('account', account)
+            console.log('profile', profile)
 
             try {
                 await prisma.user.upsert({
@@ -30,12 +32,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 console.error('Error al crear el usuario:', error)
                 return false
             }
-
-            // if (user.email?.endsWith('@marketerosagencia.com')) {
-
-            // } else {
-            //     return false
-            // }
         },
     },
 })

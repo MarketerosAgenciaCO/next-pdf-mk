@@ -7,8 +7,13 @@ import { TrayectoriaPDF } from '@/components/pdfPages/trayectoria'
 import { PresenciaPDF } from '@/components/pdfPages/presencia'
 import { QuienesSomosPDF } from '@/components/pdfPages/quienes-somos'
 import { FasesDisenoPDF } from '@/components/pdfPages/fases-diseno'
+import { DisenoWebPDF } from './pdfPages/disenoWeb'
 
-export default function PrintComponent() {
+interface PrintComponentProps {
+    adicionales: string[]
+}
+
+export default function PrintComponent({ adicionales }: PrintComponentProps) {
     const printRef = useRef<HTMLDivElement>(null)
 
     const handlePrint = useReactToPrint({
@@ -39,6 +44,8 @@ export default function PrintComponent() {
                 <QuienesSomosPDF />
                 <div className="page-break"></div>
                 <FasesDisenoPDF />
+                <div className="page-break"></div>
+                <DisenoWebPDF adicionales={adicionales} />
             </div>
 
             <button onClick={handlePrint}>Imprimir</button>

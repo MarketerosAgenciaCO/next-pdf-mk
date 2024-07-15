@@ -12,6 +12,7 @@ import { formSchema } from '@/schemas/formSchema'
 import { createQuote } from '@/app/actions/add-new-quote'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
+import PrintComponent from '@/components/print-component'
 
 interface Prices {
     id: string
@@ -48,6 +49,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     })
 
     const { toast } = useToast()
+    const selectedAdicionales = form.watch('adicionales', [])
     const [isLoading, setIsLoading] = useState(false)
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -104,6 +106,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     </Button>
                 </form>
             </Form>
+            <PrintComponent adicionales={selectedAdicionales} />
         </>
     )
 }

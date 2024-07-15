@@ -18,7 +18,6 @@ export default async function Quotes() {
                     Crear cotización
                 </h1>
                 <QuoteForm prices={prices} />
-                <PrintComponent />
             </div>
         </>
     )
