@@ -1,7 +1,6 @@
-'use client'
 import { useRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
-
+import Html2Pdf from 'js-html2pdf'
 import { PortadaPDF } from '@/components/pdfPages/portada'
 import { TrayectoriaPDF } from '@/components/pdfPages/trayectoria'
 import { PresenciaPDF } from '@/components/pdfPages/presencia'
@@ -18,6 +17,24 @@ export default function PrintComponent({ adicionales }: PrintComponentProps) {
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
+        print: async (printIframe) => {
+            const document = printIframe.contentDocument
+
+            if (document) {
+                const html = document.querySelector('.print-container')
+                const options = {
+                    margin: 0,
+                    filename: 'cotizaciones.pdf',
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'landscape',
+                    },
+                }
+                const exporter = new Html2Pdf(html, options)
+                await exporter.getPdf(options)
+            }
+        },
     })
 
     return (
@@ -34,7 +51,7 @@ export default function PrintComponent({ adicionales }: PrintComponentProps) {
                     }
                 }
             `}</style>
-            <div ref={printRef}>
+            <div ref={printRef} className="print-container">
                 <PortadaPDF />
                 <div className="page-break"></div>
                 <TrayectoriaPDF />
