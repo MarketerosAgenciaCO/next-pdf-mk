@@ -35,7 +35,7 @@
         "js-html2pdf": "^1.1.4",
         "jspdf": "^2.5.1",
         "lucide-react": "^0.397.0",
-        "next": "14.2.4",
+        "next": "14.2.5",
         "next-auth": "5.0.0-beta.19",
         "react": "^18",
         "react-dom": "^18",

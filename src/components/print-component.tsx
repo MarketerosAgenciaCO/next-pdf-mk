@@ -1,6 +1,6 @@
-import { useRef } from 'react'
-import { useReactToPrint } from 'react-to-print'
-import Html2Pdf from 'js-html2pdf'
+'use client'
+import { useEffect, useRef } from 'react'
+
 import { PortadaPDF } from '@/components/pdfPages/portada'
 import { TrayectoriaPDF } from '@/components/pdfPages/trayectoria'
 import { PresenciaPDF } from '@/components/pdfPages/presencia'
@@ -10,33 +10,13 @@ import { DisenoWebPDF } from './pdfPages/disenoWeb'
 
 interface PrintComponentProps {
     adicionales: string[]
+    printRef: React.RefObject<HTMLDivElement>
 }
 
-export default function PrintComponent({ adicionales }: PrintComponentProps) {
-    const printRef = useRef<HTMLDivElement>(null)
-
-    const handlePrint = useReactToPrint({
-        content: () => printRef.current,
-        print: async (printIframe) => {
-            const document = printIframe.contentDocument
-
-            if (document) {
-                const html = document.querySelector('.print-container')
-                const options = {
-                    margin: 0,
-                    filename: 'cotizaciones.pdf',
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'landscape',
-                    },
-                }
-                const exporter = new Html2Pdf(html, options)
-                await exporter.getPdf(options)
-            }
-        },
-    })
-
+export default function PrintComponent({
+    adicionales,
+    printRef,
+}: PrintComponentProps) {
     return (
         <>
             <style jsx global>{`
@@ -51,7 +31,7 @@ export default function PrintComponent({ adicionales }: PrintComponentProps) {
                     }
                 }
             `}</style>
-            <div ref={printRef} className="print-container">
+            <div ref={printRef} id="print-container">
                 <PortadaPDF />
                 <div className="page-break"></div>
                 <TrayectoriaPDF />
@@ -65,7 +45,7 @@ export default function PrintComponent({ adicionales }: PrintComponentProps) {
                 <DisenoWebPDF adicionales={adicionales} />
             </div>
 
-            <button onClick={handlePrint}>Imprimir</button>
+            {/* <button onClick={handlePrint}>Imprimir</button> */}
         </>
     )
 }

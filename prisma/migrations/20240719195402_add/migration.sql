@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "ZohoToken" ALTER COLUMN "createdAt" SET DATA TYPE TIMESTAMPTZ;

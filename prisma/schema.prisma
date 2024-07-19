@@ -55,3 +55,9 @@ model Prices {
   subirProductoCatalogoVariable Int
   incrementoPorIdioma         Float
 }
+
+model ZohoToken {
+  id        String @id @default(cuid())
+  token     String
+  createdAt DateTime @default(now()) @db.Timestamptz
+}

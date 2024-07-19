@@ -10,10 +10,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     callbacks: {
         async signIn({ user, account, profile }) {
-            console.log('user', user)
-            console.log('account', account)
-            console.log('profile', profile)
-
             try {
                 await prisma.user.upsert({
                     where: { email: user.email! },
