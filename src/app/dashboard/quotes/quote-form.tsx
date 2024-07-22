@@ -105,6 +105,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             precioDesarrolloEspecial: 0,
             descripcionDesarrolloEspecial: '',
             totalPrice: 0,
+            pdfLink: '',
         },
     })
 
@@ -121,35 +122,36 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsLoading(true)
         try {
-            const response = await createQuote(values)
+            const element = printRef.current
+            let permalink = ''
+
+            if (element) {
+                const pdfResult = await generateAndUploadPDF(element, values)
+                permalink = pdfResult
+            }
+
+            const response = await createQuote({
+                ...values,
+                pdfLink: permalink,
+            })
 
             if (response.success) {
-                const element = printRef.current
-                if (element) {
-                    const permalink = await generateAndUploadPDF(
-                        element,
-                        values
-                    )
-                    if (permalink) {
-                        toast({
-                            title: 'Cotización creada',
-                            description:
-                                'La cotización se ha creado correctamente',
-                            action: (
-                                <Button asChild>
-                                    <a
-                                        href={permalink}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        title="Descargar Cotización"
-                                    >
-                                        Descargala aquí
-                                    </a>
-                                </Button>
-                            ),
-                        })
-                    }
-                }
+                toast({
+                    title: 'Cotización creada',
+                    description: 'La cotización se ha creado correctamente',
+                    action: (
+                        <Button asChild>
+                            <a
+                                href={permalink}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Descargar Cotización"
+                            >
+                                Descargala aquí
+                            </a>
+                        </Button>
+                    ),
+                })
 
                 setIsLoading(false)
             } else {

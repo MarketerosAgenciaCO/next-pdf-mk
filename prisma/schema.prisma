@@ -38,6 +38,7 @@ model Quote {
   precioDesarrolloEspecial Float? @default(0)
   descripcionDesarrolloEspecial String?
   totalPrice          Int
+  pdfLink             String?  
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   userId              String
