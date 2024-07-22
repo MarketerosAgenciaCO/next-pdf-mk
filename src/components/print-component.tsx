@@ -5,6 +5,8 @@ import { QuienesSomosPDF } from '@/components/pdfPages/quienes-somos'
 import { FasesDisenoPDF } from '@/components/pdfPages/fases-diseno'
 import { DisenoWebPDF } from '@/components/pdfPages/disenoWeb'
 import { ValorPropuesta } from '@/components/pdfPages/valorPropuesta'
+import { TerminosPDF } from './pdfPages/terminos'
+import { TerminosDosPDF } from './pdfPages/terminosDos'
 
 interface PrintComponentProps {
     adicionales: string[]
@@ -63,6 +65,8 @@ export default function PrintComponent({
                     desarrolloEspecial={desarrolloEspecial}
                 />
                 <ValorPropuesta price={price} />
+                <TerminosPDF />
+                <TerminosDosPDF />
             </div>
 
             {/* <button onClick={handlePrint}>Imprimir</button> */}

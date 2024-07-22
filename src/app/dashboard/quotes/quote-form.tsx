@@ -3,9 +3,6 @@ import { useState, useRef } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import Link from 'next/link'
-import { useReactToPrint } from 'react-to-print'
-// import Html2Pdf from 'js-html2pdf'
 import html2pdf from 'html2pdf.js'
 import { useToast } from '@/components/ui/use-toast'
 import { Form } from '@/components/ui/form'
@@ -140,7 +137,14 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                                 'La cotización se ha creado correctamente',
                             action: (
                                 <Button asChild>
-                                    <a href={permalink}>Descargala aquí</a>
+                                    <a
+                                        href={permalink}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        title="Descargar Cotización"
+                                    >
+                                        Descargala aquí
+                                    </a>
                                 </Button>
                             ),
                         })
@@ -183,18 +187,19 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                         setTotalPrice={updateTotalPrice}
                         prices={prices}
                     />
-
-                    <PrintComponent
-                        printRef={printRef}
-                        adicionales={selectedAdicionales}
-                        numeroPaginas={numeroPaginas}
-                        descripcionCatalogo={descripcionCatalogo}
-                        cantidadCatalogo={cantidadCatalogo}
-                        cantidadIdioma={cantidadIdioma}
-                        descripcionIdioma={descripcionIdioma}
-                        desarrolloEspecial={desarrolloEspecial}
-                        price={totalPrice}
-                    />
+                    <div className="hidden">
+                        <PrintComponent
+                            printRef={printRef}
+                            adicionales={selectedAdicionales}
+                            numeroPaginas={numeroPaginas}
+                            descripcionCatalogo={descripcionCatalogo}
+                            cantidadCatalogo={cantidadCatalogo}
+                            cantidadIdioma={cantidadIdioma}
+                            descripcionIdioma={descripcionIdioma}
+                            desarrolloEspecial={desarrolloEspecial}
+                            price={totalPrice}
+                        />
+                    </div>
 
                     <Button type="submit" disabled={isLoading}>
                         {isLoading ? (
