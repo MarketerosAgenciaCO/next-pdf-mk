@@ -1,6 +1,11 @@
 import QuoteForm from '@/app/dashboard/quotes/quote-form'
 import prisma from '@/lib/db'
-import PrintComponent from '@/components/print-component'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Crear Cotización | Marketeros Agencia',
+    description: 'Genera cotizaciones y exportalas en pdf',
+}
 
 export default async function Quotes() {
     const prices = await prisma.prices.findFirst()

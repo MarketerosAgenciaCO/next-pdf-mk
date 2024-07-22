@@ -3,21 +3,40 @@ import Precios from '../../../public/pdf/precios.svg'
 
 interface DisenoWebProps {
     adicionales: string[]
+    numeroPaginas: number
+    descripcionCatalogo: string | undefined
+    cantidadCatalogo: string | undefined
+    cantidadIdioma: number | undefined
+    descripcionIdioma: string | undefined
+    desarrolloEspecial: string | undefined
 }
 
-export function DisenoWebPDF({ adicionales }: DisenoWebProps) {
+export function DisenoWebPDF({
+    adicionales,
+    numeroPaginas,
+    descripcionCatalogo,
+    cantidadCatalogo,
+    cantidadIdioma,
+    descripcionIdioma,
+    desarrolloEspecial,
+}: DisenoWebProps) {
+    const mostrarCatalogo = adicionales.includes('catalogo')
+
     return (
         <div className="relative bg-white page">
             <div className="grid grid-cols-2 h-full">
-                <div className="col-span-1 bg-slate-300 m-5 rounded-3xl px-8 py-14 bg-gradient-to-r from-sky-600 to-sky-500">
+                <div className="col-span-1 bg-slate-300 m-5 rounded-3xl px-8 py-8 bg-gradient-to-r from-sky-600 to-sky-500">
                     <h2 className="font-light text-4xl text-white">
                         Especificaciones{' '}
                         <strong className="block font-black">Técnicas</strong>
                     </h2>
                     <div className="w-[80px] h-1 bg-[#294859] rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 mt-4"></div>
                     <div className="bg-white bg-opacity-30 inline-block mt-4 px-6 py-3 rounded-full text-white font-medium">
-                        16 Páginas de navegación
+                        {numeroPaginas > 1
+                            ? `${numeroPaginas} Páginas de navegación`
+                            : `${numeroPaginas} Página de navegación`}
                     </div>
+
                     <ul className="mt-4 text-white ml-8 text-sm list-disc">
                         <li className="mb-2">Desarrollo desde cero</li>
                         <li className="mb-2">CMS: Wordpress</li>
@@ -31,20 +50,69 @@ export function DisenoWebPDF({ adicionales }: DisenoWebProps) {
                         </li>
                         <li>Optimizaremos la web para buscadores</li>
                     </ul>
-                    <div className="mt-9">
-                        <h3 className="text-white text-4xl font-light mb-4">
+                    <div className="mt-4">
+                        <h3 className="text-white text-3xl font-light mb-4">
                             Adicionales
                         </h3>
                         <div className="text-white text-sm max-w-sm">
-                            {adicionales && adicionales.length > 0 ? (
-                                <ul>
-                                    {adicionales.map((adicional) => (
-                                        <li key={adicional}>{adicional}</li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <span>No hay adicionales</span>
-                            )}
+                            <ul className="list-disc ml-8">
+                                {mostrarCatalogo && (
+                                    <li className="mt-2">
+                                        Módulo catálogo: {cantidadCatalogo} |{' '}
+                                        {descripcionCatalogo}
+                                    </li>
+                                )}
+
+                                {adicionales.includes(
+                                    'subir-producto-catalogo-basico'
+                                ) && (
+                                    <li className="mt-2">
+                                        Subir producto (Módulo catálogo básico)
+                                    </li>
+                                )}
+
+                                {adicionales.includes(
+                                    'subir-producto-catalogo-variable'
+                                ) && (
+                                    <li className="mt-2">
+                                        Subir producto (Módulo catálogo
+                                        variable)
+                                    </li>
+                                )}
+                                {adicionales.includes('hosting-gratis-2g') && (
+                                    <li className="mt-2">
+                                        Hosting gratis 2G (1 Año)
+                                    </li>
+                                )}
+                                {adicionales.includes(
+                                    'migracion-noticias-blog'
+                                ) && (
+                                    <li className="mt-2">
+                                        Migración noticias (Blog)
+                                    </li>
+                                )}
+                                {adicionales.includes(
+                                    'formulario-especial'
+                                ) && (
+                                    <li className="mt-2">
+                                        Formulario especial
+                                    </li>
+                                )}
+                                {adicionales.includes('idioma-adicional') && (
+                                    <li className="mt-2">
+                                        Idioma adicional: {cantidadIdioma} |{' '}
+                                        {descripcionIdioma}
+                                    </li>
+                                )}
+                                {adicionales.includes(
+                                    'desarrollo-especial-a-la-medida'
+                                ) && (
+                                    <li className="mt-2">
+                                        Desarrollo especial:{' '}
+                                        {desarrolloEspecial}
+                                    </li>
+                                )}
+                            </ul>
                         </div>
                     </div>
                 </div>

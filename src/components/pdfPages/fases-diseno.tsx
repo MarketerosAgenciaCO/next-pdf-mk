@@ -9,7 +9,7 @@ export function FasesDisenoPDF() {
             //     width: '297mm',
             //     height: '210mm',
             // }}
-            className="relative bg-slate-900 page"
+            className="relative bg-white page"
         >
             <Image src={Fases} className="w-full" alt="Fases del diseño web" />
         </div>

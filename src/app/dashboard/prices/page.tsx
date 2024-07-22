@@ -4,6 +4,12 @@ import PricePage from './pricePage'
 import prisma from '@/lib/db'
 import SubirProducto from './priceSubirProducto'
 import IncrementoIdioma from './incrementoIdioma'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Precios de las cotizaciones | Marketeros Agencia',
+    description: 'Genera cotizaciones y exportalas en pdf',
+}
 
 export default async function Prices() {
     const prices = await prisma.prices.findFirst()

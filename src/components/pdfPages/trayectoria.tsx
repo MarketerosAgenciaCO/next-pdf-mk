@@ -9,7 +9,7 @@ export function TrayectoriaPDF() {
             //     width: '297mm',
             //     height: '210mm',
             // }}
-            className="relative bg-slate-900 page"
+            className="relative white page"
         >
             <Image src={Trayectoria} className="w-full" alt="Trayectoria" />
         </div>

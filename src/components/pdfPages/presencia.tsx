@@ -9,7 +9,7 @@ export function PresenciaPDF() {
             //     width: '297mm',
             //     height: '210mm',
             // }}
-            className="relative bg-slate-900 page"
+            className="relative bg-white page"
         >
             <Image src={Presencia} className="w-full" alt="Prensencia" />
         </div>

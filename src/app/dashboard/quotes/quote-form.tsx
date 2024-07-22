@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import Link from 'next/link'
 import { useReactToPrint } from 'react-to-print'
 // import Html2Pdf from 'js-html2pdf'
 import html2pdf from 'html2pdf.js'
@@ -31,6 +32,7 @@ interface Prices {
 
 export default function QuoteForm({ prices }: { prices: Prices }) {
     const printRef = useRef<HTMLDivElement>(null)
+    const [totalPrice, setTotalPrice] = useState(0)
 
     const generateAndUploadPDF = async (
         element: HTMLDivElement,
@@ -42,12 +44,11 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                 tienda: 'Tienda en Línea',
             }
 
-            const filename =
-                projectNameMap[values.nombreProyecto] || 'Propuesta'
+            const filename = projectNameMap[values.tipoProjecto]
 
             const options = {
                 margin: 0,
-                filename: `Propuesta ${values.tipoProjecto} ${filename}.pdf`,
+                filename: `Propuesta ${filename} ${values.nombreProyecto}.pdf`,
                 jsPDF: {
                     unit: 'mm',
                     format: 'a4',
@@ -67,7 +68,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
 
             formData.append(
                 'filename',
-                `Propuesta ${values.tipoProjecto} ${filename}.pdf`
+                `Propuesta ${filename} ${values.nombreProyecto}.pdf`
             )
             formData.append('content', pdfBlob)
 
@@ -81,8 +82,11 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             if (!response.ok) {
                 throw new Error(result.error || 'Unknown error')
             }
+
+            return result
         } catch (error) {
             console.error('Error:', error)
+            return null
         }
     }
 
@@ -109,23 +113,41 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
 
     const { toast } = useToast()
     const selectedAdicionales = form.watch('adicionales', [])
+    const numeroPaginas = form.watch('numeroPaginas', 1)
+    const cantidadCatalogo = form.watch('cantidadCatalogo', '')
+    const descripcionCatalogo = form.watch('descripcionCatalogo', '')
+    const cantidadIdioma = form.watch('cantidadIdioma', 0)
+    const descripcionIdioma = form.watch('descripcionIdioma', '')
+    const desarrolloEspecial = form.watch('descripcionDesarrolloEspecial', '')
     const [isLoading, setIsLoading] = useState(false)
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsLoading(true)
         try {
             const response = await createQuote(values)
-            setIsLoading(false)
 
             if (response.success) {
                 const element = printRef.current
                 if (element) {
-                    await generateAndUploadPDF(element, values)
+                    const permalink = await generateAndUploadPDF(
+                        element,
+                        values
+                    )
+                    if (permalink) {
+                        toast({
+                            title: 'Cotización creada',
+                            description:
+                                'La cotización se ha creado correctamente',
+                            action: (
+                                <Button asChild>
+                                    <a href={permalink}>Descargala aquí</a>
+                                </Button>
+                            ),
+                        })
+                    }
                 }
-                toast({
-                    title: 'Cotización creada',
-                    description: 'La cotización se ha creado correctamente',
-                })
+
+                setIsLoading(false)
             } else {
                 toast({
                     title: 'Error al crear la cotización',
@@ -143,7 +165,8 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
         }
     }
 
-    const setTotalPrice = (price: number) => {
+    const updateTotalPrice = (price: number) => {
+        setTotalPrice(price)
         form.setValue('totalPrice', price)
     }
 
@@ -157,13 +180,20 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     <ClientInfo />
                     <ProyectType />
                     <Specifications
-                        setTotalPrice={setTotalPrice}
+                        setTotalPrice={updateTotalPrice}
                         prices={prices}
                     />
 
                     <PrintComponent
                         printRef={printRef}
                         adicionales={selectedAdicionales}
+                        numeroPaginas={numeroPaginas}
+                        descripcionCatalogo={descripcionCatalogo}
+                        cantidadCatalogo={cantidadCatalogo}
+                        cantidadIdioma={cantidadIdioma}
+                        descripcionIdioma={descripcionIdioma}
+                        desarrolloEspecial={desarrolloEspecial}
+                        price={totalPrice}
                     />
 
                     <Button type="submit" disabled={isLoading}>
