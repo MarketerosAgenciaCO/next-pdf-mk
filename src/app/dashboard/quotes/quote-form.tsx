@@ -106,6 +106,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             descripcionDesarrolloEspecial: '',
             totalPrice: 0,
             pdfLink: '',
+            reducirPrecio: 0,
         },
     })
 

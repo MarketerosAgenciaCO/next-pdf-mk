@@ -64,6 +64,7 @@ export const formSchema = z.object({
     descripcionDesarrolloEspecial: z.string().optional(),
     totalPrice: z.number(),
     pdfLink: z.string().optional(),
+    reducirPrecio: z.number().optional(),
 })
 
 // export const priceSchema = z.object({

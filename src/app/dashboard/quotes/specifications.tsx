@@ -96,6 +96,7 @@ export default function Specifications({
     const cantidadCatalogo = watch('cantidadCatalogo', 0)
     const cantidadIdiomas = watch('cantidadIdioma', 0)
     const precioDesarrolloEspecial = watch('precioDesarrolloEspecial', 0)
+    const reducirPrecio = watch('reducirPrecio', 0)
 
     const calculatePricePages = (numPages: number): number => {
         // const { basePrice, incrementPerPage } = priceConfig.pricePages
@@ -153,6 +154,8 @@ export default function Specifications({
         if (selectedAdicionales.includes('desarrollo-especial-a-la-medida')) {
             totalPrice += parseFloat(precioDesarrolloEspecial)
         }
+
+        totalPrice -= parseFloat(reducirPrecio)
 
         setPrice(totalPrice)
         setTotalPrice(totalPrice)
@@ -504,6 +507,53 @@ export default function Specifications({
                     </CardContent>
                 </Card>
             )}
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        ¿Desea reducir el precio de la cotización?
+                    </CardTitle>
+                    <CardDescription>
+                        Se restará este valor al precio de la cotización.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-4">
+                    <FormField
+                        control={control}
+                        name="reducirPrecio"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Precio a reducir</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="10.000"
+                                        value={
+                                            field.value === 0
+                                                ? ''
+                                                : field.value.toLocaleString(
+                                                      'es-ES'
+                                                  )
+                                        }
+                                        onChange={(e) => {
+                                            const formattedValue =
+                                                e.target.value.replace(
+                                                    /\D/g,
+                                                    ''
+                                                )
+                                            field.onChange(
+                                                formattedValue === ''
+                                                    ? 0
+                                                    : Number(formattedValue)
+                                            )
+                                        }}
+                                    />
+                                </FormControl>
+
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </CardContent>
+            </Card>
             <Card>
                 <CardHeader>
                     <CardTitle>
