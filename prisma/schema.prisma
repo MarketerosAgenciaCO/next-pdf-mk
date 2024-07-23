@@ -47,13 +47,27 @@ model Quote {
 
 model Prices {
   id                            String  @id @default(cuid())
-  pricePagesBasePrice           Int
-  pricePagesIncrementPerPage    Int
-  priceCatalogoBasePrice        Int
-  priceCatalogoIncrementPerPage Int
-  migracionNoticiasBlog         Int
-  subirProductoCatalogoBasico   Int
-  subirProductoCatalogoVariable Int
+  pricePagesBasePriceCOP        Int
+  pricePagesBasePriceMX         Int
+  pricePagesBasePriceEUR        Int
+  pricePagesIncrementPerPageCOP    Int
+  pricePagesIncrementPerPageMX    Int
+  pricePagesIncrementPerPageEUR    Int
+  priceCatalogoBasePriceCOP        Int
+  priceCatalogoBasePriceMX        Int
+  priceCatalogoBasePriceEUR        Int
+  priceCatalogoIncrementPerPageCOP Int
+  priceCatalogoIncrementPerPageMX Int
+  priceCatalogoIncrementPerPageEUR Int
+  migracionNoticiasBlogCOP         Int
+  migracionNoticiasBlogMX         Int
+  migracionNoticiasBlogEUR      Int
+  subirProductoCatalogoBasicoCOP   Int
+  subirProductoCatalogoBasicoMX   Int
+  subirProductoCatalogoBasicoEUR   Int
+  subirProductoCatalogoVariableCOP Int
+  subirProductoCatalogoVariableMX Int
+  subirProductoCatalogoVariableEUR Int
   incrementoPorIdioma           Float
 }
 
