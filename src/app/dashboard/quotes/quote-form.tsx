@@ -14,22 +14,109 @@ import { createQuote } from '@/app/actions/add-new-quote'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import PrintComponent from '@/components/print-component'
+import CurrencySelect from './currency-select'
 
 interface Prices {
     id: string
-    pricePagesBasePrice: number
-    pricePagesIncrementPerPage: number
-    priceCatalogoBasePrice: number
-    priceCatalogoIncrementPerPage: number
-    migracionNoticiasBlog: number
-    subirProductoCatalogoBasico: number
-    subirProductoCatalogoVariable: number
+    pricePagesBasePriceCOP: number
+    pricePagesBasePriceMX: number
+    pricePagesBasePriceEUR: number
+    pricePagesIncrementPerPageCOP: number
+    pricePagesIncrementPerPageMX: number
+    pricePagesIncrementPerPageEUR: number
+    priceCatalogoBasePriceCOP: number
+    priceCatalogoBasePriceMX: number
+    priceCatalogoBasePriceEUR: number
+    priceCatalogoIncrementPerPageCOP: number
+    priceCatalogoIncrementPerPageMX: number
+    priceCatalogoIncrementPerPageEUR: number
+    migracionNoticiasBlogCOP: number
+    migracionNoticiasBlogMX: number
+    migracionNoticiasBlogEUR: number
+    subirProductoCatalogoBasicoCOP: number
+    subirProductoCatalogoBasicoMX: number
+    subirProductoCatalogoBasicoEUR: number
+    subirProductoCatalogoVariableCOP: number
+    subirProductoCatalogoVariableMX: number
+    subirProductoCatalogoVariableEUR: number
     incrementoPorIdioma: number
 }
 
 export default function QuoteForm({ prices }: { prices: Prices }) {
     const printRef = useRef<HTMLDivElement>(null)
+    const [currency, setCurrency] = useState('COP')
     const [totalPrice, setTotalPrice] = useState(0)
+
+    const getPricesByCurrency = (currency: string) => {
+        switch (currency) {
+            case 'COP':
+                return {
+                    id: prices.id,
+                    pricePagesBasePrice: prices.pricePagesBasePriceCOP,
+                    pricePagesIncrementPerPage:
+                        prices.pricePagesIncrementPerPageCOP,
+                    priceCatalogoBasePrice: prices.priceCatalogoBasePriceCOP,
+                    priceCatalogoIncrementPerPage:
+                        prices.priceCatalogoIncrementPerPageCOP,
+                    migracionNoticiasBlog: prices.migracionNoticiasBlogCOP,
+                    subirProductoCatalogoBasico:
+                        prices.subirProductoCatalogoBasicoCOP,
+                    subirProductoCatalogoVariable:
+                        prices.subirProductoCatalogoVariableCOP,
+                    incrementoPorIdioma: prices.incrementoPorIdioma,
+                }
+            case 'MXN':
+                return {
+                    id: prices.id,
+                    pricePagesBasePrice: prices.pricePagesBasePriceMX,
+                    pricePagesIncrementPerPage:
+                        prices.pricePagesIncrementPerPageMX,
+                    priceCatalogoBasePrice: prices.priceCatalogoBasePriceMX,
+                    priceCatalogoIncrementPerPage:
+                        prices.priceCatalogoIncrementPerPageMX,
+                    migracionNoticiasBlog: prices.migracionNoticiasBlogMX,
+                    subirProductoCatalogoBasico:
+                        prices.subirProductoCatalogoBasicoMX,
+                    subirProductoCatalogoVariable:
+                        prices.subirProductoCatalogoVariableMX,
+                    incrementoPorIdioma: prices.incrementoPorIdioma,
+                }
+            case 'EUR':
+                return {
+                    id: prices.id,
+                    pricePagesBasePrice: prices.pricePagesBasePriceEUR,
+                    pricePagesIncrementPerPage:
+                        prices.pricePagesIncrementPerPageEUR,
+                    priceCatalogoBasePrice: prices.priceCatalogoBasePriceEUR,
+                    priceCatalogoIncrementPerPage:
+                        prices.priceCatalogoIncrementPerPageEUR,
+                    migracionNoticiasBlog: prices.migracionNoticiasBlogEUR,
+                    subirProductoCatalogoBasico:
+                        prices.subirProductoCatalogoBasicoEUR,
+                    subirProductoCatalogoVariable:
+                        prices.subirProductoCatalogoVariableEUR,
+                    incrementoPorIdioma: prices.incrementoPorIdioma,
+                }
+            default:
+                return {
+                    id: prices.id,
+                    pricePagesBasePrice: prices.pricePagesBasePriceCOP,
+                    pricePagesIncrementPerPage:
+                        prices.pricePagesIncrementPerPageCOP,
+                    priceCatalogoBasePrice: prices.priceCatalogoBasePriceCOP,
+                    priceCatalogoIncrementPerPage:
+                        prices.priceCatalogoIncrementPerPageCOP,
+                    migracionNoticiasBlog: prices.migracionNoticiasBlogCOP,
+                    subirProductoCatalogoBasico:
+                        prices.subirProductoCatalogoBasicoCOP,
+                    subirProductoCatalogoVariable:
+                        prices.subirProductoCatalogoVariableCOP,
+                    incrementoPorIdioma: prices.incrementoPorIdioma,
+                }
+        }
+    }
+
+    const currentPrices = getPricesByCurrency(currency)
 
     const generateAndUploadPDF = async (
         element: HTMLDivElement,
@@ -107,6 +194,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             totalPrice: 0,
             pdfLink: '',
             reducirPrecio: 0,
+            moneda: 'COP',
         },
     })
 
@@ -118,6 +206,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     const cantidadIdioma = form.watch('cantidadIdioma', 0)
     const descripcionIdioma = form.watch('descripcionIdioma', '')
     const desarrolloEspecial = form.watch('descripcionDesarrolloEspecial', '')
+
     const [isLoading, setIsLoading] = useState(false)
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -185,10 +274,11 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     className="space-y-8"
                 >
                     <ClientInfo />
+                    <CurrencySelect setCurrency={setCurrency} />
                     <ProyectType />
                     <Specifications
                         setTotalPrice={updateTotalPrice}
-                        prices={prices}
+                        prices={currentPrices}
                     />
                     <div className="hidden">
                         <PrintComponent
@@ -201,6 +291,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                             descripcionIdioma={descripcionIdioma}
                             desarrolloEspecial={desarrolloEspecial}
                             price={totalPrice}
+                            moneda={currency}
                         />
                     </div>
 

@@ -20,10 +20,6 @@ export const formSchema = z.object({
             .int({
                 message: 'El número de páginas debe ser un número entero',
             })
-            .refine((value) => ![2, 3, 4].includes(value), {
-                message: 'El número de páginas no puede ser 2, 3 o 4',
-                path: ['numeroPaginas'],
-            })
     ),
     adicionales: z.array(z.string()),
     cantidadCatalogo: z.string().optional(),
@@ -65,6 +61,7 @@ export const formSchema = z.object({
     totalPrice: z.number(),
     pdfLink: z.string().optional(),
     reducirPrecio: z.number().optional(),
+    moneda: z.string().min(1, { message: 'Por favor, elige un tipo' }),
 })
 
 // export const priceSchema = z.object({

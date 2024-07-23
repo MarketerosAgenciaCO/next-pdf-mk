@@ -18,6 +18,7 @@ interface PrintComponentProps {
     descripcionIdioma: string | undefined
     desarrolloEspecial: string | undefined
     price: number
+    moneda: string
 }
 
 export default function PrintComponent({
@@ -30,6 +31,7 @@ export default function PrintComponent({
     descripcionIdioma,
     desarrolloEspecial,
     price,
+    moneda,
 }: PrintComponentProps) {
     return (
         <>
@@ -64,7 +66,7 @@ export default function PrintComponent({
                     descripcionIdioma={descripcionIdioma}
                     desarrolloEspecial={desarrolloEspecial}
                 />
-                <ValorPropuesta price={price} />
+                <ValorPropuesta price={price} moneda={moneda} />
                 <TerminosPDF />
                 <TerminosDosPDF />
             </div>

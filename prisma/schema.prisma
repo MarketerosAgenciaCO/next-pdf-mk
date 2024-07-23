@@ -43,6 +43,7 @@ model Quote {
   updatedAt                     DateTime @updatedAt
   userId                        String
   user                          User      @relation(fields: [userId], references: [id])
+  moneda                        String
 }
 
 model Prices {
@@ -54,6 +55,32 @@ model Prices {
   migracionNoticiasBlog         Int
   subirProductoCatalogoBasico   Int
   subirProductoCatalogoVariable Int
+  incrementoPorIdioma           Float
+}
+
+model PricesCurrency {
+  id                            String  @id @default(cuid())
+  pricePagesBasePriceCOP        Int
+  pricePagesBasePriceMX         Int
+  pricePagesBasePriceEUR        Int
+  pricePagesIncrementPerPageCOP    Int
+  pricePagesIncrementPerPageMX    Int
+  pricePagesIncrementPerPageEUR    Int
+  priceCatalogoBasePriceCOP        Int
+  priceCatalogoBasePriceMX        Int
+  priceCatalogoBasePriceEUR        Int
+  priceCatalogoIncrementPerPageCOP Int
+  priceCatalogoIncrementPerPageMX Int
+  priceCatalogoIncrementPerPageEUR Int
+  migracionNoticiasBlogCOP         Int
+  migracionNoticiasBlogMX         Int
+  migracionNoticiasBlogEUR      Int
+  subirProductoCatalogoBasicoCOP   Int
+  subirProductoCatalogoBasicoMX   Int
+  subirProductoCatalogoBasicoEUR   Int
+  subirProductoCatalogoVariableCOP Int
+  subirProductoCatalogoVariableMX Int
+  subirProductoCatalogoVariableEUR Int
   incrementoPorIdioma           Float
 }
 

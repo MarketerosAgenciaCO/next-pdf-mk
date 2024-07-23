@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Quotes() {
-    const prices = await prisma.prices.findFirst()
+    const prices = await prisma.pricesCurrency.findFirst()
 
     if (!prices) {
         throw new Error('No hay precios definidos')

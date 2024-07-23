@@ -197,9 +197,7 @@ export default function Specifications({
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    Ten en cuenta el home y las páginas
-                                    internas, no estadisponible el 2, 3 y 4
-                                    Precio: {price}
+                                    Ten en cuenta el home y las páginas internas
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>

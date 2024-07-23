@@ -6,9 +6,10 @@ import PuntosValor from '../../../public/pdf/puntosvalor.png'
 
 interface ValuePropositionProps {
     price: number
+    moneda: string
 }
 
-export function ValorPropuesta({ price }: ValuePropositionProps) {
+export function ValorPropuesta({ price, moneda }: ValuePropositionProps) {
     return (
         <div
             // style={{
@@ -25,7 +26,7 @@ export function ValorPropuesta({ price }: ValuePropositionProps) {
                     </h2>
                     <div className="w-[120px] h-1 bg-[#294859] rounded-lg bg-gradient-to-r from-amber-400 to-orange-500" />
                     <span className="bg-blue-300 inline-block bg-opacity-20 mt-5 px-6 py-3 rounded-full font-light text-3xl text-[#294859]">
-                        <span className="text-lg">$</span>
+                        <span className="text-lg">{moneda}</span>
                         {price.toLocaleString('es-ES')}
                         <span className="text-lg">+ IVA</span>
                     </span>
