@@ -16,9 +16,9 @@ export const navLinks = [
         href: '/dashboard/prices',
         icon: CircleDollarSign,
     },
-    {
-        name: 'Usuarios',
-        href: 'users',
-        icon: Users2,
-    },
+    // {
+    //     name: 'Usuarios',
+    //     href: 'users',
+    //     icon: Users2,
+    // },
 ]

@@ -14,47 +14,47 @@ generator client {
 }
  
 model User {
-  id        String @id @default(cuid())
-  email     String @unique
-  name      String
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  quotes    Quote[]
+  id                            String @id @default(cuid())
+  email                         String @unique
+  name                          String
+  createAt                      DateTime @default(now())
+  updateAt                      DateTime @updatedAt
+  quotes                        Quote[]
 }
 
 model Quote {
-  id                  String    @id @default(cuid())
-  nombre              String
-  apellido            String
-  nombreProyecto      String
-  sitioWeb            String?
-  numeroPaginas       Int
-  adicionales         String[]
-  cantidadCatalogo    String?
-  descripcionCatalogo String?
-  precioFormulario    Float?    @default(0)
-  cantidadIdioma      Int?
-  descripcionIdioma   String?
-  precioDesarrolloEspecial Float? @default(0)
+  id                            String    @id @default(cuid())
+  nombre                        String
+  apellido                      String
+  nombreProyecto                String
+  sitioWeb                      String?
+  numeroPaginas                 Int
+  adicionales                   String[]
+  cantidadCatalogo              String?
+  descripcionCatalogo           String?
+  precioFormulario              Float?    @default(0)
+  cantidadIdioma                Int?
+  descripcionIdioma             String?
+  precioDesarrolloEspecial      Float? @default(0)
   descripcionDesarrolloEspecial String?
-  totalPrice          Int
-  pdfLink             String?  
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  userId              String
-  user                User      @relation(fields: [userId], references: [id])
+  totalPrice                    Int
+  pdfLink                       String?  
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
+  userId                        String
+  user                          User      @relation(fields: [userId], references: [id])
 }
 
 model Prices {
-  id                          String  @id @default(cuid())
-  pricePagesBasePrice         Int
-  pricePagesIncrementPerPage  Int
-  priceCatalogoBasePrice      Int
+  id                            String  @id @default(cuid())
+  pricePagesBasePrice           Int
+  pricePagesIncrementPerPage    Int
+  priceCatalogoBasePrice        Int
   priceCatalogoIncrementPerPage Int
-  migracionNoticiasBlog       Int
-  subirProductoCatalogoBasico Int
+  migracionNoticiasBlog         Int
+  subirProductoCatalogoBasico   Int
   subirProductoCatalogoVariable Int
-  incrementoPorIdioma         Float
+  incrementoPorIdioma           Float
 }
 
 model ZohoToken {
