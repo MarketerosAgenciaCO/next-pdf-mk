@@ -46,7 +46,10 @@ export default function CurrencySelect({ setCurrency }: CurrencySelectProps) {
                             <FormLabel>Moneda</FormLabel>
                             <Select
                                 // onValueChange={field.onChange}
-                                onValueChange={(value) => setCurrency(value)}
+                                onValueChange={(value) => {
+                                    setCurrency(value)
+                                    field.onChange(value)
+                                }}
                                 defaultValue={field.value}
                             >
                                 <FormControl>

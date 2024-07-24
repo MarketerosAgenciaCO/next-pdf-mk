@@ -27,8 +27,14 @@ import { useToast } from '@/components/ui/use-toast'
 import { priceSchema } from '@/schemas/formSchema'
 import { updatePrice } from '@/app/actions/update-price'
 
+interface Price {
+    COP: number
+    MXN: number
+    EUR: number
+}
+
 interface PricePageProps {
-    migracionNoticiasBlog: number
+    migracionNoticiasBlog: Price
     priceId: string
 }
 
@@ -43,7 +49,9 @@ export default function PriceMigration({
         resolver: zodResolver(priceSchema),
         defaultValues: {
             priceId: priceId,
-            migracionNoticiasBlog: migracionNoticiasBlog,
+            migracionNoticiasBlogCOP: migracionNoticiasBlog.COP,
+            migracionNoticiasBlogMXN: migracionNoticiasBlog.MXN,
+            migracionNoticiasBlogEUR: migracionNoticiasBlog.EUR,
         },
     })
 
@@ -94,17 +102,98 @@ export default function PriceMigration({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <CardContent>
-                        <div className="grid gap-4">
+                        <div className="grid gap-4 sm:grid-cols-3">
+                            <h3 className="col-span-3 font-medium">
+                                Precio de migración del blog
+                            </h3>
                             <FormField
                                 control={form.control}
-                                name="migracionNoticiasBlog"
+                                name="migracionNoticiasBlogCOP"
                                 render={({ field }) => (
                                     <FormItem className="relative">
-                                        <FormLabel>
-                                            Precio de migración del blog
-                                        </FormLabel>
+                                        <FormLabel>COP</FormLabel>
                                         <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
                                             $
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="migracionNoticiasBlogMXN"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>MXN</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            $
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="migracionNoticiasBlogEUR"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>EUR</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            €
                                         </span>
                                         <FormControl>
                                             <Input

@@ -210,6 +210,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     const [isLoading, setIsLoading] = useState(false)
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        console.log('Form values:', values)
         setIsLoading(true)
         try {
             const element = printRef.current

@@ -5,20 +5,44 @@ import { priceSchema } from '@/schemas/formSchema'
 
 export async function updatePrice(data: z.infer<typeof priceSchema>) {
     try {
-        const updatePrice = await prisma.prices.update({
+        const updatePrice = await prisma.pricesCurrency.update({
             where: {
                 id: data.priceId,
             },
             data: {
-                pricePagesBasePrice: data.pricePagesBasePrice,
-                pricePagesIncrementPerPage: data.pricePagesIncrementPerPage,
-                priceCatalogoBasePrice: data.priceCatalogoBasePrice,
-                priceCatalogoIncrementPerPage:
-                    data.priceCatalogoIncrementPerPage,
-                migracionNoticiasBlog: data.migracionNoticiasBlog,
-                subirProductoCatalogoBasico: data.subirProductoCatalogoBasico,
-                subirProductoCatalogoVariable:
-                    data.subirProductoCatalogoVariable,
+                pricePagesBasePriceCOP: data.pricePagesBasePriceCOP,
+                pricePagesBasePriceMX: data.pricePagesBasePriceMXN,
+                pricePagesBasePriceEUR: data.pricePagesBasePriceEUR,
+                pricePagesIncrementPerPageCOP:
+                    data.pricePagesIncrementPerPageCOP,
+                pricePagesIncrementPerPageMX:
+                    data.pricePagesIncrementPerPageMXN,
+                pricePagesIncrementPerPageEUR:
+                    data.pricePagesIncrementPerPageEUR,
+                priceCatalogoBasePriceCOP: data.priceCatalogoBasePriceCOP,
+                priceCatalogoBasePriceMX: data.priceCatalogoBasePriceMXN,
+                priceCatalogoBasePriceEUR: data.priceCatalogoBasePriceEUR,
+                priceCatalogoIncrementPerPageCOP:
+                    data.priceCatalogoIncrementPerPageCOP,
+                priceCatalogoIncrementPerPageMX:
+                    data.priceCatalogoIncrementPerPageMXN,
+                priceCatalogoIncrementPerPageEUR:
+                    data.priceCatalogoIncrementPerPageEUR,
+                migracionNoticiasBlogCOP: data.migracionNoticiasBlogCOP,
+                migracionNoticiasBlogMX: data.migracionNoticiasBlogMXN,
+                migracionNoticiasBlogEUR: data.migracionNoticiasBlogEUR,
+                subirProductoCatalogoBasicoCOP:
+                    data.subirProductoCatalogoBasicoCOP,
+                subirProductoCatalogoBasicoMX:
+                    data.subirProductoCatalogoBasicoMXN,
+                subirProductoCatalogoBasicoEUR:
+                    data.subirProductoCatalogoBasicoEUR,
+                subirProductoCatalogoVariableCOP:
+                    data.subirProductoCatalogoVariableCOP,
+                subirProductoCatalogoVariableMX:
+                    data.subirProductoCatalogoVariableMXN,
+                subirProductoCatalogoVariableEUR:
+                    data.subirProductoCatalogoVariableEUR,
                 incrementoPorIdioma: data.incrementoPorIdioma,
             },
         })

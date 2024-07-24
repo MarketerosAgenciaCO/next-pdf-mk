@@ -27,9 +27,15 @@ import { useToast } from '@/components/ui/use-toast'
 import { priceSchema } from '@/schemas/formSchema'
 import { updatePrice } from '@/app/actions/update-price'
 
+interface Price {
+    COP: number
+    MXN: number
+    EUR: number
+}
+
 interface PricePageProps {
-    subirProductoCatalogoBasico: number
-    subirProductoCatalogoVariable: number
+    subirProductoCatalogoBasico: Price
+    subirProductoCatalogoVariable: Price
     priceId: string
 }
 
@@ -45,8 +51,12 @@ export default function SubirProducto({
         resolver: zodResolver(priceSchema),
         defaultValues: {
             priceId: priceId,
-            subirProductoCatalogoBasico: subirProductoCatalogoBasico,
-            subirProductoCatalogoVariable: subirProductoCatalogoVariable,
+            subirProductoCatalogoBasicoCOP: subirProductoCatalogoBasico.COP,
+            subirProductoCatalogoBasicoMXN: subirProductoCatalogoBasico.MXN,
+            subirProductoCatalogoBasicoEUR: subirProductoCatalogoBasico.EUR,
+            subirProductoCatalogoVariableCOP: subirProductoCatalogoVariable.COP,
+            subirProductoCatalogoVariableMXN: subirProductoCatalogoVariable.MXN,
+            subirProductoCatalogoVariableEUR: subirProductoCatalogoVariable.EUR,
         },
     })
 
@@ -97,15 +107,16 @@ export default function SubirProducto({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <CardContent>
-                        <div className="grid gap-4">
+                        <div className="grid gap-4 sm:grid-cols-3">
+                            <h3 className="col-span-3 font-medium">
+                                Precio subir producto básico
+                            </h3>
                             <FormField
                                 control={form.control}
-                                name="subirProductoCatalogoBasico"
+                                name="subirProductoCatalogoBasicoCOP"
                                 render={({ field }) => (
                                     <FormItem className="relative">
-                                        <FormLabel>
-                                            Precio subir producto básico
-                                        </FormLabel>
+                                        <FormLabel>COP</FormLabel>
                                         <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
                                             $
                                         </span>
@@ -142,14 +153,175 @@ export default function SubirProducto({
                             />
                             <FormField
                                 control={form.control}
-                                name="subirProductoCatalogoVariable"
+                                name="subirProductoCatalogoBasicoMXN"
                                 render={({ field }) => (
                                     <FormItem className="relative">
-                                        <FormLabel>
-                                            Precio subir producto variable
-                                        </FormLabel>
+                                        <FormLabel>MXN</FormLabel>
                                         <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
                                             $
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="subirProductoCatalogoBasicoEUR"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>EUR</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            €
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <h3 className="col-span-3 font-medium">
+                                Precio subir producto variable
+                            </h3>
+                            <FormField
+                                control={form.control}
+                                name="subirProductoCatalogoVariableCOP"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>COP</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            $
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="subirProductoCatalogoVariableMXN"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>MXN</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            $
+                                        </span>
+                                        <FormControl>
+                                            <Input
+                                                value={
+                                                    field.value !== undefined
+                                                        ? field.value.toLocaleString(
+                                                              'es-ES'
+                                                          )
+                                                        : ''
+                                                }
+                                                className="pl-8"
+                                                onChange={(e) => {
+                                                    const formattedValue =
+                                                        e.target.value.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        )
+                                                    field.onChange(
+                                                        formattedValue === ''
+                                                            ? 0
+                                                            : Number(
+                                                                  formattedValue
+                                                              )
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="subirProductoCatalogoVariableEUR"
+                                render={({ field }) => (
+                                    <FormItem className="relative">
+                                        <FormLabel>EUR</FormLabel>
+                                        <span className="absolute top-8 left-3 flex items-center text-muted-foreground">
+                                            €
                                         </span>
                                         <FormControl>
                                             <Input

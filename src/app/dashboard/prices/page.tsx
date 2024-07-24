@@ -12,10 +12,52 @@ export const metadata: Metadata = {
 }
 
 export default async function Prices() {
-    const prices = await prisma.prices.findFirst()
+    const prices = await prisma.pricesCurrency.findFirst()
 
     if (!prices) {
         throw new Error('No hay precios definidos')
+    }
+
+    const pricePagesBasePrice = {
+        COP: prices.pricePagesBasePriceCOP,
+        MXN: prices.pricePagesBasePriceMX,
+        EUR: prices.pricePagesBasePriceEUR,
+    }
+
+    const pricePagesIncrementPerPage = {
+        COP: prices.pricePagesIncrementPerPageCOP,
+        MXN: prices.pricePagesIncrementPerPageMX,
+        EUR: prices.pricePagesIncrementPerPageEUR,
+    }
+
+    const priceCatalogoBasePrice = {
+        COP: prices.priceCatalogoBasePriceCOP,
+        MXN: prices.priceCatalogoBasePriceMX,
+        EUR: prices.priceCatalogoBasePriceEUR,
+    }
+
+    const priceCatalogoIncrementPerPage = {
+        COP: prices.priceCatalogoIncrementPerPageCOP,
+        MXN: prices.priceCatalogoIncrementPerPageMX,
+        EUR: prices.priceCatalogoIncrementPerPageEUR,
+    }
+
+    const subirProductoCatalogoBasico = {
+        COP: prices.subirProductoCatalogoBasicoCOP,
+        MXN: prices.subirProductoCatalogoBasicoMX,
+        EUR: prices.subirProductoCatalogoBasicoEUR,
+    }
+
+    const subirProductoCatalogoVariable = {
+        COP: prices.subirProductoCatalogoVariableCOP,
+        MXN: prices.subirProductoCatalogoVariableMX,
+        EUR: prices.subirProductoCatalogoVariableEUR,
+    }
+
+    const migracionNoticiasBlog = {
+        COP: prices.migracionNoticiasBlogCOP,
+        MXN: prices.migracionNoticiasBlogMX,
+        EUR: prices.migracionNoticiasBlogEUR,
     }
 
     return (
@@ -27,26 +69,22 @@ export default async function Prices() {
             </div>
 
             <PricePage
-                pricePagesBasePrice={prices.pricePagesBasePrice}
-                pricePagesIncrementPerPage={prices.pricePagesIncrementPerPage}
+                pricePagesBasePrice={pricePagesBasePrice}
+                pricePagesIncrementPerPage={pricePagesIncrementPerPage}
                 priceId={prices.id}
             />
             <PriceCatalog
-                priceCatalogoBasePrice={prices.priceCatalogoBasePrice}
-                priceCatalogoIncrementPerPage={
-                    prices.priceCatalogoIncrementPerPage
-                }
+                priceCatalogoBasePrice={priceCatalogoBasePrice}
+                priceCatalogoIncrementPerPage={priceCatalogoIncrementPerPage}
                 priceId={prices.id}
             />
             <SubirProducto
-                subirProductoCatalogoBasico={prices.subirProductoCatalogoBasico}
-                subirProductoCatalogoVariable={
-                    prices.subirProductoCatalogoVariable
-                }
+                subirProductoCatalogoBasico={subirProductoCatalogoBasico}
+                subirProductoCatalogoVariable={subirProductoCatalogoVariable}
                 priceId={prices.id}
             />
             <PriceMigration
-                migracionNoticiasBlog={prices.migracionNoticiasBlog}
+                migracionNoticiasBlog={migracionNoticiasBlog}
                 priceId={prices.id}
             />
             <IncrementoIdioma

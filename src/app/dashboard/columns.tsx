@@ -8,12 +8,10 @@ import { Button } from '@/components/ui/button'
 export const columns: ColumnDef<any>[] = [
     {
         accessorKey: 'nombre',
+        accessorFn: (row) => `${row.nombre} ${row.apellido}`,
         header: 'Nombre',
     },
-    {
-        accessorKey: 'apellido',
-        header: 'Apellido',
-    },
+
     {
         accessorKey: 'nombreProyecto',
         header: 'Proyecto',
@@ -62,14 +60,31 @@ export const columns: ColumnDef<any>[] = [
         header: () => <div className="text-right">Precio Total</div>,
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue('totalPrice'))
+            const moneda = row.original.moneda // Accedemos a 'moneda' desde los datos originales de la fila
+            const formattedAmount = amount.toLocaleString('es-ES')
 
-            const formatted = new Intl.NumberFormat('es-ES', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0,
-            }).format(amount)
-
-            return <div className="text-right font-medium">{formatted}</div>
+            return (
+                <div className="text-right font-medium">
+                    {formattedAmount} {moneda}
+                </div>
+            )
         },
     },
+
+    // {
+    //     accessorKey: 'totalPrice',
+    //     accessorFn: (row) => `${row.totalPrice} ${row.moneda}`,
+    //     header: () => <div className="text-right">Precio Total</div>,
+    //     cell: ({ row }) => {
+    //         const amount = parseFloat(row.getValue('totalPrice'))
+    //         const moneda = row.getValue('moneda')
+    //         const formatted2 = amount.toLocaleString('es-ES')
+
+    //         return (
+    //             <div className="text-right font-medium">
+    //                 {formatted2 + ' ' + moneda}
+    //             </div>
+    //         )
+    //     },
+    // },
 ]

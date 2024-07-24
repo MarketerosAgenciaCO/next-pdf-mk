@@ -28,6 +28,7 @@ export async function createQuote(data: z.infer<typeof formSchema>) {
                 totalPrice: data.totalPrice,
                 userId: userId,
                 pdfLink: data.pdfLink,
+                moneda: data.moneda,
             },
         })
 
