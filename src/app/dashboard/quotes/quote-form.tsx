@@ -219,38 +219,49 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             if (element) {
                 const pdfResult = await generateAndUploadPDF(element, values)
                 permalink = pdfResult
-            }
 
-            const response = await createQuote({
-                ...values,
-                pdfLink: permalink,
-            })
+                if (!permalink) {
+                    setIsLoading(false)
+                    toast({
+                        title: 'Error al generar el PDF',
+                        description:
+                            'Zoho tiene problemas en este momento, intenta más tarde',
+                        variant: 'destructive',
+                    })
+                } else {
+                    const response = await createQuote({
+                        ...values,
+                        pdfLink: permalink,
+                    })
 
-            if (response.success) {
-                toast({
-                    title: 'Cotización creada',
-                    description: 'La cotización se ha creado correctamente',
-                    action: (
-                        <Button asChild>
-                            <a
-                                href={permalink}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="Descargar Cotización"
-                            >
-                                Descargala aquí
-                            </a>
-                        </Button>
-                    ),
-                })
+                    if (response.success) {
+                        toast({
+                            title: 'Cotización creada',
+                            description:
+                                'La cotización se ha creado correctamente',
+                            action: (
+                                <Button asChild>
+                                    <a
+                                        href={permalink}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        title="Descargar Cotización"
+                                    >
+                                        Descargala aquí
+                                    </a>
+                                </Button>
+                            ),
+                        })
 
-                setIsLoading(false)
-            } else {
-                toast({
-                    title: 'Error al crear la cotización',
-                    description: response.error,
-                    variant: 'destructive',
-                })
+                        setIsLoading(false)
+                    } else {
+                        toast({
+                            title: 'Error al crear la cotización',
+                            description: response.error,
+                            variant: 'destructive',
+                        })
+                    }
+                }
             }
         } catch (error) {
             setIsLoading(false)
