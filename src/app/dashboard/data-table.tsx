@@ -26,14 +26,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 const multiColumnFilter: FilterFn<any> = (row, columnId, filterValue) => {
-    const { nombre, apellido, nombreProyecto, vendedor } = row.original
+    const { nombre, nombreProyecto, vendedor } = row.original
     const searchValue = filterValue.toLowerCase()
 
     return (
         nombre.toLowerCase().includes(searchValue) ||
-        apellido.toLowerCase().includes(searchValue) ||
-        nombreProyecto.toLowerCase().includes(searchValue) ||
-        vendedor.toLowerCase().includes(searchValue)
+        nombreProyecto.toLowerCase().includes(searchValue)
     )
 }
 
