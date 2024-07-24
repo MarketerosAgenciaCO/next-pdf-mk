@@ -36,10 +36,12 @@ const getZohoAccessToken = async () => {
                     token: accessToken,
                 },
             })
-        }
 
-        console.log('Zoho access token:', accessToken)
-        return accessToken
+            console.log('Zoho access token:', accessToken)
+            return accessToken
+        } else {
+            throw new Error('Error getting Zoho access token')
+        }
     } catch (error) {
         console.error('Error fetching Zoho access token:', error)
     }
