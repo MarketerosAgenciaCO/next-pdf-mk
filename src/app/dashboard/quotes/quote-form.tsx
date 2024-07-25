@@ -212,65 +212,65 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log('Form values:', values)
         setIsLoading(true)
-        // try {
-        //     const element = printRef.current
-        //     let permalink = ''
+        try {
+            const element = printRef.current
+            let permalink = ''
 
-        //     if (element) {
-        //         const pdfResult = await generateAndUploadPDF(element, values)
-        //         permalink = pdfResult
+            if (element) {
+                const pdfResult = await generateAndUploadPDF(element, values)
+                permalink = pdfResult
 
-        //         if (!permalink) {
-        //             setIsLoading(false)
-        //             toast({
-        //                 title: 'Error al generar el PDF',
-        //                 description:
-        //                     'Zoho tiene problemas en este momento, intenta más tarde',
-        //                 variant: 'destructive',
-        //             })
-        //         } else {
-        //             const response = await createQuote({
-        //                 ...values,
-        //                 pdfLink: permalink,
-        //             })
+                if (!permalink) {
+                    setIsLoading(false)
+                    toast({
+                        title: 'Error al generar el PDF',
+                        description:
+                            'Zoho tiene problemas en este momento, intenta más tarde',
+                        variant: 'destructive',
+                    })
+                } else {
+                    const response = await createQuote({
+                        ...values,
+                        pdfLink: permalink,
+                    })
 
-        //             if (response.success) {
-        //                 toast({
-        //                     title: 'Cotización creada',
-        //                     description:
-        //                         'La cotización se ha creado correctamente',
-        //                     action: (
-        //                         <Button asChild>
-        //                             <a
-        //                                 href={permalink}
-        //                                 target="_blank"
-        //                                 rel="noreferrer"
-        //                                 title="Descargar Cotización"
-        //                             >
-        //                                 Descargala aquí
-        //                             </a>
-        //                         </Button>
-        //                     ),
-        //                 })
+                    if (response.success) {
+                        toast({
+                            title: 'Cotización creada',
+                            description:
+                                'La cotización se ha creado correctamente',
+                            action: (
+                                <Button asChild>
+                                    <a
+                                        href={permalink}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        title="Descargar Cotización"
+                                    >
+                                        Descargala aquí
+                                    </a>
+                                </Button>
+                            ),
+                        })
 
-        //                 setIsLoading(false)
-        //             } else {
-        //                 toast({
-        //                     title: 'Error al crear la cotización',
-        //                     description: response.error,
-        //                     variant: 'destructive',
-        //                 })
-        //             }
-        //         }
-        //     }
-        // } catch (error) {
-        //     setIsLoading(false)
-        //     toast({
-        //         title: 'Error',
-        //         description: 'Ocurrió un error al generar la cotización',
-        //         variant: 'destructive',
-        //     })
-        // }
+                        setIsLoading(false)
+                    } else {
+                        toast({
+                            title: 'Error al crear la cotización',
+                            description: response.error,
+                            variant: 'destructive',
+                        })
+                    }
+                }
+            }
+        } catch (error) {
+            setIsLoading(false)
+            toast({
+                title: 'Error',
+                description: 'Ocurrió un error al generar la cotización',
+                variant: 'destructive',
+            })
+        }
     }
 
     const updateTotalPrice = (price: number) => {
