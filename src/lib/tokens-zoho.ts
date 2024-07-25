@@ -28,6 +28,7 @@ const getZohoAccessToken = async () => {
         }
 
         const data = await response.json()
+        console.log(data)
         const accessToken = data.access_token
 
         if (accessToken) {

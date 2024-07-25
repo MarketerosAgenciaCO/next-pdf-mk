@@ -28,9 +28,11 @@ async function requestHandler(request: NextRequest): Promise<NextResponse> {
         })
 
         const responseJson = await response.json()
-        const permakink = responseJson.data[0].attributes.Permalink
+        console.log('responseJson', responseJson)
 
-        return NextResponse.json(permakink)
+        const permalink = responseJson.data[0].attributes.Permalink
+        console.log('permalink', permalink)
+        return NextResponse.json(permalink)
     } catch (error) {
         return NextResponse.json(
             { error: 'An error occurred' },
