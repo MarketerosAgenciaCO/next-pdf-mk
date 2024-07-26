@@ -15,6 +15,13 @@ import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import PrintComponent from '@/components/print-component'
 import CurrencySelect from './currency-select'
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardContent,
+} from '@/components/ui/card'
 
 interface Prices {
     id: string
@@ -157,6 +164,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             formData.append('content', pdfBlob)
 
             const response = await fetch('/api/upload-document', {
+                cache: 'no-store',
                 method: 'POST',
                 body: formData,
             })
@@ -193,7 +201,8 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             descripcionDesarrolloEspecial: '',
             totalPrice: 0,
             pdfLink: '',
-            reducirPrecio: 0,
+            sumarPrecio: 0,
+            restarPrecio: 0,
             moneda: 'COP',
         },
     })
@@ -292,19 +301,6 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                         setTotalPrice={updateTotalPrice}
                         prices={currentPrices}
                     />
-                    <PrintComponent
-                        printRef={printRef}
-                        adicionales={selectedAdicionales}
-                        numeroPaginas={numeroPaginas}
-                        descripcionCatalogo={descripcionCatalogo}
-                        cantidadCatalogo={cantidadCatalogo}
-                        cantidadIdioma={cantidadIdioma}
-                        descripcionIdioma={descripcionIdioma}
-                        desarrolloEspecial={desarrolloEspecial}
-                        price={totalPrice}
-                        moneda={currency}
-                    />
-
                     <Button type="submit" disabled={isLoading}>
                         {isLoading ? (
                             <Loader className="animate-spin h-5 w-5" />
@@ -312,6 +308,31 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                             'Generar Cotización'
                         )}
                     </Button>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>
+                                Previsualización de la cotización
+                            </CardTitle>
+                            <CardDescription>
+                                Revisa la cotización y el precio final antes de
+                                finalizar.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="items-center justify-center">
+                            <PrintComponent
+                                printRef={printRef}
+                                adicionales={selectedAdicionales}
+                                numeroPaginas={numeroPaginas}
+                                descripcionCatalogo={descripcionCatalogo}
+                                cantidadCatalogo={cantidadCatalogo}
+                                cantidadIdioma={cantidadIdioma}
+                                descripcionIdioma={descripcionIdioma}
+                                desarrolloEspecial={desarrolloEspecial}
+                                price={totalPrice}
+                                moneda={currency}
+                            />
+                        </CardContent>
+                    </Card>
                 </form>
             </Form>
         </>

@@ -28,8 +28,8 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-
-// import { priceConfig } from '@/config/config'
+import { Button } from '@/components/ui/button'
+import { SquarePlus, SquareMinus } from 'lucide-react'
 
 const adicionales = [
     {
@@ -96,7 +96,8 @@ export default function Specifications({
     const cantidadCatalogo = watch('cantidadCatalogo', 0)
     const cantidadIdiomas = watch('cantidadIdioma', 0)
     const precioDesarrolloEspecial = watch('precioDesarrolloEspecial', 0)
-    const reducirPrecio = watch('reducirPrecio', 0)
+    const sumarPrecio = watch('sumarPrecio', 0)
+    const restarPrecio = watch('restarPrecio', 0)
 
     const calculatePricePages = (numPages: number): number => {
         // const { basePrice, incrementPerPage } = priceConfig.pricePages
@@ -155,10 +156,12 @@ export default function Specifications({
             totalPrice += parseFloat(precioDesarrolloEspecial)
         }
 
-        totalPrice -= parseFloat(reducirPrecio)
+        totalPrice += parseFloat(sumarPrecio)
+        totalPrice -= parseFloat(restarPrecio)
 
         setPrice(totalPrice)
         setTotalPrice(totalPrice)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         numeroPaginas,
@@ -508,22 +511,57 @@ export default function Specifications({
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        ¿Desea reducir el precio de la cotización?
+                        ¿Desea cambia el precio de la cotización?
                     </CardTitle>
                     <CardDescription>
-                        Se restará este valor al precio de la cotización.
+                        Se cambiará este valor al precio de la cotización.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-4">
+                <CardContent className="flex gap-4 items-end">
                     <FormField
                         control={control}
-                        name="reducirPrecio"
+                        name="sumarPrecio"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Precio a reducir</FormLabel>
+                                <FormLabel>Sumar al valor</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="10.000"
+                                        placeholder="+ 10.000"
+                                        value={
+                                            field.value === 0
+                                                ? ''
+                                                : field.value.toLocaleString(
+                                                      'es-ES'
+                                                  )
+                                        }
+                                        onChange={(e) => {
+                                            const formattedValue =
+                                                e.target.value.replace(
+                                                    /\D/g,
+                                                    ''
+                                                )
+                                            field.onChange(
+                                                formattedValue === ''
+                                                    ? 0
+                                                    : Number(formattedValue)
+                                            )
+                                        }}
+                                    />
+                                </FormControl>
+
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={control}
+                        name="restarPrecio"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Restar al valor</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="- 10.000"
                                         value={
                                             field.value === 0
                                                 ? ''

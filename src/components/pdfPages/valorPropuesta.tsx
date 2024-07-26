@@ -38,13 +38,13 @@ export function ValorPropuesta({ price, moneda }: ValuePropositionProps) {
                     <ul className="flex gap-5 text-sm mt-5 text-[#294859]">
                         <li className="w-1/3">
                             <strong className="block text-lg text-sky-600">
-                                35%
+                                40%
                             </strong>
                             al comienzo de los trabajos
                         </li>
                         <li className="w-1/3">
                             <strong className="block text-lg text-sky-600">
-                                35%
+                                30%
                             </strong>
                             a la aprobación del boceto
                         </li>
@@ -59,7 +59,13 @@ export function ValorPropuesta({ price, moneda }: ValuePropositionProps) {
                 </div>
             </div>
             <div className="flex flex-col h-full justify-end">
-                <Image src={Valor} alt="Presencia" />
+                <Image
+                    src={Valor}
+                    alt="Presencia"
+                    className="w-[418px] h-[439px]"
+                    width={418}
+                    height={439}
+                />
             </div>
             <Image
                 src={FondoValor}

@@ -60,7 +60,8 @@ export const formSchema = z.object({
     descripcionDesarrolloEspecial: z.string().optional(),
     totalPrice: z.number(),
     pdfLink: z.string().optional(),
-    reducirPrecio: z.number().optional(),
+    sumarPrecio: z.number().optional(),
+    restarPrecio: z.number().optional(),
     moneda: z.string().min(1, { message: 'Por favor, elige un tipo' }),
 })
 

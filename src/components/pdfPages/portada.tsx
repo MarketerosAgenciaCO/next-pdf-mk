@@ -19,28 +19,42 @@ export function PortadaPDF() {
             className="relative bg-white page"
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Image src={LogoMk} className="w-full" alt="Logo Mk" />
+                <Image
+                    src={LogoMk}
+                    className="w-[305px] h-[150px]"
+                    alt="Logo Mk"
+                    width={305}
+                    height={150}
+                />
                 <div className="flex justify-center items-center py-2 gap-2 relative mt-3">
                     <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-transparent via-white opacity-25"></div>
                     <Image
                         src={FlagCO}
-                        className="w-[20px]"
+                        className="w-[20px] h-[13px]"
                         alt="Bandera Colombia"
+                        width={20}
+                        height={13}
                     />
                     <Image
                         src={FlagMX}
-                        className="w-[20px]"
+                        className="w-[20px] h-[13px]"
                         alt="Bandera México"
+                        width={20}
+                        height={13}
                     />
                     <Image
                         src={FlagUS}
-                        className="w-[20px]"
+                        className="w-[20px] h-[13px]"
                         alt="Bandera USA"
+                        width={20}
+                        height={13}
                     />
                     <Image
                         src={FlagES}
-                        className="w-[20px]"
+                        className="w-[20px] h-[13px]"
                         alt="Bandera España"
+                        width={20}
+                        height={13}
                     />
                 </div>
             </div>
@@ -66,7 +80,9 @@ export function PortadaPDF() {
                             <Image
                                 src={Cohete}
                                 alt="Vamos por una década más de éxito"
-                                className="ml-2"
+                                className="ml-2 w-[51px] h-[51px]"
+                                width={51}
+                                height={51}
                             />
                         </span>
                         <strong className="font-black">una década más</strong>

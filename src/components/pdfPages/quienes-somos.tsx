@@ -30,8 +30,10 @@ export function QuienesSomosPDF() {
             </div>
             <Image
                 src={QuienesSomosCirculo}
-                className="w-full"
+                className="w-[511px] h-[507px]"
                 alt="Quienes Somos"
+                width={511}
+                height={507}
             />
         </div>
     )
