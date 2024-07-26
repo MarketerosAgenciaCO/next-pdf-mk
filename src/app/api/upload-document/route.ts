@@ -20,6 +20,7 @@ async function requestHandler(request: NextRequest): Promise<NextResponse> {
 
         const accessToken = await checkZohoTokenExpiration()
         const response = await fetch(url, {
+            cache: 'no-store',
             method: 'POST',
             body: uploadFormData,
             headers: {
