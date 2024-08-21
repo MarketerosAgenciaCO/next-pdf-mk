@@ -1,9 +1,30 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
-
+import { MoreHorizontal } from 'lucide-react'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
+import { deleteQuote } from '../actions/delete-quote'
+import { FileText, Trash2 } from 'lucide-react'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import DeleteButton from '@/components/dashboard/delete-button'
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -11,7 +32,6 @@ export const columns: ColumnDef<any>[] = [
         accessorFn: (row) => `${row.nombre} ${row.apellido}`,
         header: 'Nombre',
     },
-
     {
         accessorKey: 'nombreProyecto',
         header: 'Proyecto',
@@ -70,21 +90,31 @@ export const columns: ColumnDef<any>[] = [
             )
         },
     },
+    {
+        id: 'actions',
+        cell: ({ row }) => {
+            const id = row.original.id
+            const pdf = row.original.pdfLink
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <MoreHorizontal className="h-5 w-5" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
 
-    // {
-    //     accessorKey: 'totalPrice',
-    //     accessorFn: (row) => `${row.totalPrice} ${row.moneda}`,
-    //     header: () => <div className="text-right">Precio Total</div>,
-    //     cell: ({ row }) => {
-    //         const amount = parseFloat(row.getValue('totalPrice'))
-    //         const moneda = row.getValue('moneda')
-    //         const formatted2 = amount.toLocaleString('es-ES')
-
-    //         return (
-    //             <div className="text-right font-medium">
-    //                 {formatted2 + ' ' + moneda}
-    //             </div>
-    //         )
-    //     },
-    // },
+                        <DropdownMenuItem
+                            onClick={() => window.open(pdf, '_blank')}
+                        >
+                            <FileText className="mr-2 h-4 w-4" />
+                            <span>Ver PDF</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DeleteButton onDelete={deleteQuote} id={id} />
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )
+        },
+    },
 ]
