@@ -19,13 +19,8 @@ export function PortadaPDF() {
             className="relative bg-white page"
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Image
-                    src={LogoMk}
-                    className="w-[305px] h-[150px]"
-                    alt="Logo Mk"
-                    width={305}
-                    height={150}
-                />
+                <Image src={LogoMk} className="w-full" alt="Logo Mk" />
+
                 <div className="flex justify-center items-center py-2 gap-2 relative mt-3">
                     <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-transparent via-white opacity-25"></div>
                     <Image

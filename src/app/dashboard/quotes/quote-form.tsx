@@ -308,31 +308,20 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                             'Generar Cotización'
                         )}
                     </Button>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>
-                                Previsualización de la cotización
-                            </CardTitle>
-                            <CardDescription>
-                                Revisa la cotización y el precio final antes de
-                                finalizar.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="items-center justify-center">
-                            <PrintComponent
-                                printRef={printRef}
-                                adicionales={selectedAdicionales}
-                                numeroPaginas={numeroPaginas}
-                                descripcionCatalogo={descripcionCatalogo}
-                                cantidadCatalogo={cantidadCatalogo}
-                                cantidadIdioma={cantidadIdioma}
-                                descripcionIdioma={descripcionIdioma}
-                                desarrolloEspecial={desarrolloEspecial}
-                                price={totalPrice}
-                                moneda={currency}
-                            />
-                        </CardContent>
-                    </Card>
+                    <div className="w-full ">
+                        <PrintComponent
+                            printRef={printRef}
+                            adicionales={selectedAdicionales}
+                            numeroPaginas={numeroPaginas}
+                            descripcionCatalogo={descripcionCatalogo}
+                            cantidadCatalogo={cantidadCatalogo}
+                            cantidadIdioma={cantidadIdioma}
+                            descripcionIdioma={descripcionIdioma}
+                            desarrolloEspecial={desarrolloEspecial}
+                            price={totalPrice}
+                            moneda={currency}
+                        />
+                    </div>
                 </form>
             </Form>
         </>

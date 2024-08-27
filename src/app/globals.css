@@ -83,6 +83,10 @@
     height: 210mm; /* altura completa de la página */
 }
 
+.page img {
+    object-fit: contain;
+}
+
 .page-break {
     page-break-after: always;
 }

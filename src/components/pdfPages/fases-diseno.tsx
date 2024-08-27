@@ -11,13 +11,7 @@ export function FasesDisenoPDF() {
             // }}
             className="relative bg-white page"
         >
-            <Image
-                src={Fases}
-                className="w-[1122px] h-[793px]"
-                alt="Fases del diseño web"
-                width={1122}
-                height={793}
-            />
+            <Image src={Fases} className="w-full" alt="Fases de diseño" />
         </div>
     )
 }
