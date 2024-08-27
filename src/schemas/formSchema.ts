@@ -13,9 +13,6 @@ export const formSchema = z.object({
         z
             .number()
             .min(1, { message: 'Por favor, escribe el numero de paginas' })
-            .max(20, {
-                message: 'El numero de paginas debe ser menor o igual a 20',
-            })
 
             .int({
                 message: 'El número de páginas debe ser un número entero',
