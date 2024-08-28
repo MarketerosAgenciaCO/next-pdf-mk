@@ -12,22 +12,36 @@ import {
     CardDescription,
     CardContent,
 } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 
 import { useFormContext } from 'react-hook-form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
+// const tipoProyecto = [
+//     {
+//         name: 'Tienda en Línea',
+//         value: 'tienda',
+//     },
+//     {
+//         name: 'Diseño Web',
+//         value: 'disenoWeb',
+//     },
+// ]
+
 const tipoProyecto = [
     {
-        name: 'Tienda en Línea',
-        value: 'tienda',
-        disabled: true,
+        id: 'tienda',
+        label: 'Tienda en Línea',
     },
     {
-        name: 'Diseño Web',
-        value: 'disenoWeb',
-        disabled: false,
+        id: 'disenoWeb',
+        label: 'Diseño Web',
     },
-]
+    // {
+    //     id: 'seo',
+    //     label: 'Posicionamiento SEO',
+    // },
+] as const
 
 export default function ProyectType() {
     const { control } = useFormContext()
@@ -41,11 +55,12 @@ export default function ProyectType() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <FormField
+                {/*  <FormField
                     control={control}
                     name="tipoProjecto"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
+
                             <FormControl>
                                 <RadioGroup
                                     onValueChange={field.onChange}
@@ -66,18 +81,9 @@ export default function ProyectType() {
                                                             value={
                                                                 proyecto.value
                                                             }
-                                                            disabled={
-                                                                proyecto.disabled
-                                                            }
                                                         />
                                                     </FormControl>
-                                                    <FormLabel
-                                                        className={
-                                                            proyecto.disabled
-                                                                ? 'cursor-not-allowed'
-                                                                : ''
-                                                        }
-                                                    >
+                                                    <FormLabel>
                                                         {proyecto.name}
                                                     </FormLabel>
                                                 </FormItem>
@@ -87,6 +93,62 @@ export default function ProyectType() {
                                 </RadioGroup>
                             </FormControl>
 
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />*/}
+
+                <FormField
+                    control={control}
+                    name="tipoProjecto"
+                    render={() => (
+                        <FormItem>
+                            {tipoProyecto.map((item) => (
+                                <FormField
+                                    key={item.id}
+                                    control={control}
+                                    name="tipoProjecto"
+                                    render={({ field }) => {
+                                        return (
+                                            <FormItem
+                                                key={item.id}
+                                                className="flex flex-row items-start space-x-3 space-y-0"
+                                            >
+                                                <FormControl>
+                                                    <Checkbox
+                                                        checked={field.value?.includes(
+                                                            item.id
+                                                        )}
+                                                        onCheckedChange={(
+                                                            checked
+                                                        ) => {
+                                                            return checked
+                                                                ? field.onChange(
+                                                                      [
+                                                                          ...field.value,
+                                                                          item.id,
+                                                                      ]
+                                                                  )
+                                                                : field.onChange(
+                                                                      field.value?.filter(
+                                                                          (
+                                                                              value: string
+                                                                          ) =>
+                                                                              value !==
+                                                                              item.id
+                                                                      )
+                                                                  )
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">
+                                                    {item.label}
+                                                </FormLabel>
+                                            </FormItem>
+                                        )
+                                    }}
+                                />
+                            ))}
                             <FormMessage />
                         </FormItem>
                     )}

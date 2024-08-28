@@ -15,13 +15,6 @@ import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import PrintComponent from '@/components/print-component'
 import CurrencySelect from './currency-select'
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardContent,
-} from '@/components/ui/card'
 
 interface Prices {
     id: string
@@ -47,6 +40,9 @@ interface Prices {
     subirProductoCatalogoVariableMX: number
     subirProductoCatalogoVariableEUR: number
     incrementoPorIdioma: number
+    priceStoreCOP: number
+    priceStoreMX: number
+    priceStoreEUR: number
 }
 
 export default function QuoteForm({ prices }: { prices: Prices }) {
@@ -71,6 +67,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     subirProductoCatalogoVariable:
                         prices.subirProductoCatalogoVariableCOP,
                     incrementoPorIdioma: prices.incrementoPorIdioma,
+                    priceStore: prices.priceStoreCOP,
                 }
             case 'MXN':
                 return {
@@ -87,6 +84,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     subirProductoCatalogoVariable:
                         prices.subirProductoCatalogoVariableMX,
                     incrementoPorIdioma: prices.incrementoPorIdioma,
+                    priceStore: prices.priceStoreMX,
                 }
             case 'EUR':
                 return {
@@ -103,6 +101,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     subirProductoCatalogoVariable:
                         prices.subirProductoCatalogoVariableEUR,
                     incrementoPorIdioma: prices.incrementoPorIdioma,
+                    priceStore: prices.priceStoreEUR,
                 }
             default:
                 return {
@@ -119,6 +118,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                     subirProductoCatalogoVariable:
                         prices.subirProductoCatalogoVariableCOP,
                     incrementoPorIdioma: prices.incrementoPorIdioma,
+                    priceStore: prices.priceStoreCOP,
                 }
         }
     }
@@ -130,16 +130,16 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
         values: z.infer<typeof formSchema>
     ) => {
         try {
-            const projectNameMap: { [key: string]: string } = {
-                disenoWeb: 'Diseño Web',
-                tienda: 'Tienda en Línea',
-            }
+            // const projectNameMap: { [key: string]: string } = {
+            //     disenoWeb: 'Diseño Web',
+            //     tienda: 'Tienda en Línea',
+            // }
 
-            const filename = projectNameMap[values.tipoProjecto]
+            // const filename = projectNameMap[values.tipoProjecto]
 
             const options = {
                 margin: 0,
-                filename: `Propuesta ${filename} ${values.nombreProyecto}.pdf`,
+                filename: `Propuesta ${values.nombreProyecto}.pdf`,
                 jsPDF: {
                     unit: 'mm',
                     format: 'a4',
@@ -159,7 +159,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
 
             formData.append(
                 'filename',
-                `Propuesta ${filename} ${values.nombreProyecto}.pdf`
+                `Propuesta ${values.nombreProyecto}.pdf`
             )
             formData.append('content', pdfBlob)
 
@@ -189,7 +189,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             apellido: '',
             sitioWeb: '',
             nombreProyecto: '',
-            tipoProjecto: '',
+            tipoProjecto: [''],
             numeroPaginas: 1,
             adicionales: [''],
             cantidadCatalogo: '',
@@ -215,6 +215,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
     const cantidadIdioma = form.watch('cantidadIdioma', 0)
     const descripcionIdioma = form.watch('descripcionIdioma', '')
     const desarrolloEspecial = form.watch('descripcionDesarrolloEspecial', '')
+    const tipoProyecto = form.watch('tipoProjecto', [])
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -320,6 +321,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                             desarrolloEspecial={desarrolloEspecial}
                             price={totalPrice}
                             moneda={currency}
+                            tipoProyecto={tipoProyecto}
                         />
                     </div>
                 </form>

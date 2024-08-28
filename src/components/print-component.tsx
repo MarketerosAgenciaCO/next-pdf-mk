@@ -19,6 +19,7 @@ interface PrintComponentProps {
     desarrolloEspecial: string | undefined
     price: number
     moneda: string
+    tipoProyecto: string[]
 }
 
 export default function PrintComponent({
@@ -32,6 +33,7 @@ export default function PrintComponent({
     desarrolloEspecial,
     price,
     moneda,
+    tipoProyecto,
 }: PrintComponentProps) {
     return (
         <>
@@ -56,16 +58,24 @@ export default function PrintComponent({
                 <TrayectoriaPDF />
                 <PresenciaPDF />
                 <QuienesSomosPDF />
-                <FasesDisenoPDF />
-                <DisenoWebPDF
-                    adicionales={adicionales}
-                    numeroPaginas={numeroPaginas}
-                    descripcionCatalogo={descripcionCatalogo}
-                    cantidadCatalogo={cantidadCatalogo}
-                    cantidadIdioma={cantidadIdioma}
-                    descripcionIdioma={descripcionIdioma}
-                    desarrolloEspecial={desarrolloEspecial}
-                />
+
+                {(tipoProyecto.includes('disenoWeb') ||
+                    tipoProyecto.includes('tienda')) && (
+                    <>
+                        <FasesDisenoPDF />
+                        <DisenoWebPDF
+                            adicionales={adicionales}
+                            numeroPaginas={numeroPaginas}
+                            descripcionCatalogo={descripcionCatalogo}
+                            cantidadCatalogo={cantidadCatalogo}
+                            cantidadIdioma={cantidadIdioma}
+                            descripcionIdioma={descripcionIdioma}
+                            desarrolloEspecial={desarrolloEspecial}
+                            tipoProyecto={tipoProyecto}
+                        />
+                    </>
+                )}
+
                 <ValorPropuesta price={price} moneda={moneda} />
                 <TerminosPDF />
                 <TerminosDosPDF />

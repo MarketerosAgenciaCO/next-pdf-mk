@@ -28,8 +28,6 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import { SquarePlus, SquareMinus } from 'lucide-react'
 
 const adicionales = [
     {
@@ -76,6 +74,7 @@ interface Prices {
     subirProductoCatalogoBasico: number
     subirProductoCatalogoVariable: number
     incrementoPorIdioma: number
+    priceStore: number
 }
 
 interface SpecificationsProps {
@@ -98,6 +97,9 @@ export default function Specifications({
     const precioDesarrolloEspecial = watch('precioDesarrolloEspecial', 0)
     const sumarPrecio = watch('sumarPrecio', 0)
     const restarPrecio = watch('restarPrecio', 0)
+    const tipoProyecto = watch('tipoProjecto', [])
+
+    console.log(tipoProyecto)
 
     const calculatePricePages = (numPages: number): number => {
         // const { basePrice, incrementPerPage } = priceConfig.pricePages
@@ -126,7 +128,15 @@ export default function Specifications({
     }
 
     useEffect(() => {
-        let totalPrice = calculatePricePages(numeroPaginas)
+        let totalPrice = 0
+
+        if (tipoProyecto.includes('disenoWeb')) {
+            totalPrice += calculatePricePages(numeroPaginas)
+        }
+
+        if (tipoProyecto.includes('tienda')) {
+            totalPrice += prices.priceStore
+        }
 
         if (selectedAdicionales.includes('catalogo')) {
             totalPrice += calculatePriceCatalogo(cantidadCatalogo)
@@ -168,6 +178,7 @@ export default function Specifications({
         precioFormulario,
         cantidadCatalogo,
         selectedAdicionales,
+        tipoProyecto,
         cantidadIdiomas,
         precioDesarrolloEspecial,
         setTotalPrice,
@@ -178,96 +189,99 @@ export default function Specifications({
 
     return (
         <>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Especificaciones del Sitio</CardTitle>
-                    <CardDescription>
-                        Provide details about the site youre building.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-4">
-                    <FormField
-                        control={control}
-                        name="numeroPaginas"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Cantidad de Páginas</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="1"
-                                        type="number"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormDescription>
-                                    Ten en cuenta el home y las páginas internas
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={control}
-                        name="adicionales"
-                        render={() => (
-                            <FormItem>
-                                <div className="mb-4">
-                                    <FormLabel className="text-base">
-                                        Adicionales
-                                    </FormLabel>
-                                </div>
-                                {adicionales.map((item) => (
-                                    <FormField
-                                        key={item.value}
-                                        control={control}
-                                        name="adicionales"
-                                        render={({ field }) => {
-                                            return (
-                                                <FormItem
-                                                    key={item.value}
-                                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                                >
-                                                    <FormControl>
-                                                        <Checkbox
-                                                            checked={field.value?.includes(
-                                                                item.value
-                                                            )}
-                                                            onCheckedChange={(
-                                                                checked
-                                                            ) => {
-                                                                return checked
-                                                                    ? field.onChange(
-                                                                          [
-                                                                              ...field.value,
-                                                                              item.value,
-                                                                          ]
-                                                                      )
-                                                                    : field.onChange(
-                                                                          field.value?.filter(
-                                                                              (
-                                                                                  value: string
-                                                                              ) =>
-                                                                                  value !==
-                                                                                  item.value
+            {tipoProyecto.includes('disenoWeb') && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Especificaciones del Sitio</CardTitle>
+                        <CardDescription>
+                            Provide details about the site youre building.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                        <FormField
+                            control={control}
+                            name="numeroPaginas"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Cantidad de Páginas</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="1"
+                                            type="number"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Ten en cuenta el home y las páginas
+                                        internas
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={control}
+                            name="adicionales"
+                            render={() => (
+                                <FormItem>
+                                    <div className="mb-4">
+                                        <FormLabel className="text-base">
+                                            Adicionales
+                                        </FormLabel>
+                                    </div>
+                                    {adicionales.map((item) => (
+                                        <FormField
+                                            key={item.value}
+                                            control={control}
+                                            name="adicionales"
+                                            render={({ field }) => {
+                                                return (
+                                                    <FormItem
+                                                        key={item.value}
+                                                        className="flex flex-row items-start space-x-3 space-y-0"
+                                                    >
+                                                        <FormControl>
+                                                            <Checkbox
+                                                                checked={field.value?.includes(
+                                                                    item.value
+                                                                )}
+                                                                onCheckedChange={(
+                                                                    checked
+                                                                ) => {
+                                                                    return checked
+                                                                        ? field.onChange(
+                                                                              [
+                                                                                  ...field.value,
+                                                                                  item.value,
+                                                                              ]
                                                                           )
-                                                                      )
-                                                            }}
-                                                        />
-                                                    </FormControl>
-                                                    <FormLabel className="font-normal">
-                                                        {item.name}
-                                                    </FormLabel>
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                ))}
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </CardContent>
-            </Card>
+                                                                        : field.onChange(
+                                                                              field.value?.filter(
+                                                                                  (
+                                                                                      value: string
+                                                                                  ) =>
+                                                                                      value !==
+                                                                                      item.value
+                                                                              )
+                                                                          )
+                                                                }}
+                                                            />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal">
+                                                            {item.name}
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                )
+                                            }}
+                                        />
+                                    ))}
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </CardContent>
+                </Card>
+            )}
 
             {selectedAdicionales?.includes('catalogo') && (
                 <Card>

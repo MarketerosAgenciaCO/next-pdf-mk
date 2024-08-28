@@ -82,6 +82,9 @@ model PricesCurrency {
   subirProductoCatalogoVariableMX Int
   subirProductoCatalogoVariableEUR Int
   incrementoPorIdioma           Float
+  priceStoreCOP                 Int
+  priceStoreMX                  Int
+  priceStoreEUR                 Int
 }
 
 model ZohoToken {

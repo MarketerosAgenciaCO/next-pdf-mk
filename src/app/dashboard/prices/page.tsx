@@ -5,6 +5,7 @@ import prisma from '@/lib/db'
 import SubirProducto from './priceSubirProducto'
 import IncrementoIdioma from './incrementoIdioma'
 import { Metadata } from 'next'
+import PriceStore from './priceStore'
 
 export const metadata: Metadata = {
     title: 'Precios de las cotizaciones | Marketeros Agencia',
@@ -60,6 +61,12 @@ export default async function Prices() {
         EUR: prices.migracionNoticiasBlogEUR,
     }
 
+    const priceStore = {
+        COP: prices.priceStoreCOP,
+        MXN: prices.priceStoreMX,
+        EUR: prices.priceStoreEUR,
+    }
+
     return (
         <>
             <div className="space-y-8 col-span-3 relative max-w-screen-xl ">
@@ -91,6 +98,7 @@ export default async function Prices() {
                 incrementoPorIdioma={prices.incrementoPorIdioma}
                 priceId={prices.id}
             />
+            <PriceStore priceId={prices.id} priceStore={priceStore} />
         </>
     )
 }

@@ -7,7 +7,9 @@ export const formSchema = z.object({
         .string()
         .min(1, { message: 'Por favor, escribe el nombre del proyecto' }),
     sitioWeb: z.string().optional(),
-    tipoProjecto: z.string().min(1, { message: 'Por favor, elige un tipo' }),
+    tipoProjecto: z
+        .array(z.string())
+        .min(2, { message: 'Por favor, elige al menos un tipo' }),
     numeroPaginas: z.preprocess(
         (value) => Number(value),
         z
@@ -114,4 +116,7 @@ export const priceSchema = z.object({
     subirProductoCatalogoVariableMXN: z.number().optional(),
     subirProductoCatalogoVariableEUR: z.number().optional(),
     incrementoPorIdioma: z.number().optional(),
+    priceStoreCOP: z.number().optional(),
+    priceStoreMXN: z.number().optional(),
+    priceStoreEUR: z.number().optional(),
 })

@@ -9,6 +9,7 @@ interface DisenoWebProps {
     cantidadIdioma: number | undefined
     descripcionIdioma: string | undefined
     desarrolloEspecial: string | undefined
+    tipoProyecto: string[]
 }
 
 export function DisenoWebPDF({
@@ -19,6 +20,7 @@ export function DisenoWebPDF({
     cantidadIdioma,
     descripcionIdioma,
     desarrolloEspecial,
+    tipoProyecto,
 }: DisenoWebProps) {
     const mostrarCatalogo = adicionales.includes('catalogo')
 
@@ -31,11 +33,13 @@ export function DisenoWebPDF({
                         <strong className="block font-black">Técnicas</strong>
                     </h2>
                     <div className="w-[80px] h-1 bg-[#294859] rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 mt-4"></div>
-                    <div className="bg-white bg-opacity-30 inline-block mt-4 px-6 py-3 rounded-full text-white font-medium">
-                        {numeroPaginas > 1
-                            ? `${numeroPaginas} Páginas de navegación`
-                            : `${numeroPaginas} Página de navegación`}
-                    </div>
+                    {tipoProyecto.includes('disenoWeb') && (
+                        <div className="bg-white bg-opacity-30 inline-block mt-4 px-6 py-3 rounded-full text-white font-medium">
+                            {numeroPaginas > 1
+                                ? `${numeroPaginas} Páginas de navegación`
+                                : `${numeroPaginas} Página de navegación`}
+                        </div>
+                    )}
 
                     <ul className="mt-4 text-white ml-8 text-sm list-disc">
                         <li className="mb-2">Desarrollo desde cero</li>
@@ -48,7 +52,14 @@ export function DisenoWebPDF({
                             Exploradores compatibles: Chrome, Safari, Opera,
                             Edge, Firefox
                         </li>
-                        <li>Optimizaremos la web para buscadores</li>
+                        <li className="mb-2">
+                            Optimizaremos la web para buscadores
+                        </li>
+                        {tipoProyecto.includes('tienda') && (
+                            <li className="mb-2">
+                                Integración de un método de pago
+                            </li>
+                        )}
                     </ul>
                     <div className="mt-4">
                         <h3 className="text-white text-3xl font-light mb-4">
@@ -56,6 +67,18 @@ export function DisenoWebPDF({
                         </h3>
                         <div className="text-white text-sm max-w-sm">
                             <ul className="list-disc ml-8">
+                                {tipoProyecto.includes('tienda') && (
+                                    <li className="mt-2">
+                                        El plan incluye la carga de 10 productos
+                                        y 2 categorías. El cliente podrá agregar
+                                        los productos que desee luego de recibir
+                                        la respectiva capacitación. Si el
+                                        cliente desea que Marketeros haga la
+                                        carga de los demás productos, esto tiene
+                                        un valor adicional de acuerdo a la
+                                        complejidad del producto.
+                                    </li>
+                                )}
                                 {mostrarCatalogo && (
                                     <li className="mt-2">
                                         Módulo catálogo: {cantidadCatalogo} |{' '}

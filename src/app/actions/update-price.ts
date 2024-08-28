@@ -44,6 +44,9 @@ export async function updatePrice(data: z.infer<typeof priceSchema>) {
                 subirProductoCatalogoVariableEUR:
                     data.subirProductoCatalogoVariableEUR,
                 incrementoPorIdioma: data.incrementoPorIdioma,
+                priceStoreCOP: data.priceStoreCOP,
+                priceStoreMX: data.priceStoreMXN,
+                priceStoreEUR: data.priceStoreEUR,
             },
         })
 
