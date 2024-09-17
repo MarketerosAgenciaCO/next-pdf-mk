@@ -11,7 +11,12 @@ export function FasesDisenoPDF() {
             // }}
             className="relative bg-white page"
         >
-            <Image src={Fases} className="w-full" alt="Fases de diseño" />
+            <Image
+                src={Fases}
+                className="w-full"
+                alt="Fases de diseño"
+                loading="eager"
+            />
         </div>
     )
 }

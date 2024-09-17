@@ -309,7 +309,7 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
                             'Generar Cotización'
                         )}
                     </Button>
-                    <div className="w-full ">
+                    <div className="w-full hidden">
                         <PrintComponent
                             printRef={printRef}
                             adicionales={selectedAdicionales}

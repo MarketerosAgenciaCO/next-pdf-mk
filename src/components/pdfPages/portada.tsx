@@ -19,7 +19,12 @@ export function PortadaPDF() {
             className="relative bg-white page"
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Image src={LogoMk} className="w-full" alt="Logo Mk" />
+                <Image
+                    src={LogoMk}
+                    className="w-full"
+                    alt="Logo Mk"
+                    loading="eager"
+                />
 
                 <div className="flex justify-center items-center py-2 gap-2 relative mt-3">
                     <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-r from-transparent via-white opacity-25"></div>
@@ -29,6 +34,7 @@ export function PortadaPDF() {
                         alt="Bandera Colombia"
                         width={20}
                         height={13}
+                        loading="eager"
                     />
                     <Image
                         src={FlagMX}
@@ -36,6 +42,7 @@ export function PortadaPDF() {
                         alt="Bandera México"
                         width={20}
                         height={13}
+                        loading="eager"
                     />
                     <Image
                         src={FlagUS}
@@ -43,6 +50,7 @@ export function PortadaPDF() {
                         alt="Bandera USA"
                         width={20}
                         height={13}
+                        loading="eager"
                     />
                     <Image
                         src={FlagES}
@@ -50,6 +58,7 @@ export function PortadaPDF() {
                         alt="Bandera España"
                         width={20}
                         height={13}
+                        loading="eager"
                     />
                 </div>
             </div>
@@ -78,6 +87,7 @@ export function PortadaPDF() {
                                 className="ml-2 w-[51px] h-[51px]"
                                 width={51}
                                 height={51}
+                                loading="eager"
                             />
                         </span>
                         <strong className="font-black">una década más</strong>
