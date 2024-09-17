@@ -1,4 +1,4 @@
-import { Home, Users2, FilePlus, CircleDollarSign } from 'lucide-react'
+import { Home, FilePlus, CircleDollarSign } from 'lucide-react'
 
 export const navLinks = [
     {
@@ -16,9 +16,4 @@ export const navLinks = [
         href: '/dashboard/prices',
         icon: CircleDollarSign,
     },
-    // {
-    //     name: 'Usuarios',
-    //     href: 'users',
-    //     icon: Users2,
-    // },
 ]
