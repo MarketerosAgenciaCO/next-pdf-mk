@@ -4,9 +4,11 @@ import { PresenciaPDF } from '@/components/pdfPages/presencia'
 import { QuienesSomosPDF } from '@/components/pdfPages/quienes-somos'
 import { FasesDisenoPDF } from '@/components/pdfPages/fases-diseno'
 import { DisenoWebPDF } from '@/components/pdfPages/disenoWeb'
+import { TiendaPDF } from '@/components/pdfPages/tienda'
 import { ValorPropuesta } from '@/components/pdfPages/valorPropuesta'
+import { EquipoPDF } from '@/components/pdfPages/equipo'
 import { TerminosPDF } from './pdfPages/terminos'
-import { TerminosDosPDF } from './pdfPages/terminosDos'
+import { TiendaDosPDF } from '@/components/pdfPages/tiendaDos'
 
 interface PrintComponentProps {
     adicionales: string[]
@@ -59,8 +61,7 @@ export default function PrintComponent({
                 <PresenciaPDF />
                 <QuienesSomosPDF />
 
-                {(tipoProyecto.includes('disenoWeb') ||
-                    tipoProyecto.includes('tienda')) && (
+                {(tipoProyecto.includes('disenoWeb') && (
                     <>
                         <FasesDisenoPDF />
                         <DisenoWebPDF
@@ -74,11 +75,36 @@ export default function PrintComponent({
                             tipoProyecto={tipoProyecto}
                         />
                     </>
-                )}
+                ))}
+                {tipoProyecto.includes('tienda') && (
+                    <>
+                    <FasesDisenoPDF />
+                    <TiendaPDF
+                        adicionales={adicionales}
+                        numeroPaginas={numeroPaginas}
+                        descripcionCatalogo={descripcionCatalogo}
+                        cantidadCatalogo={cantidadCatalogo}
+                        cantidadIdioma={cantidadIdioma}
+                        descripcionIdioma={descripcionIdioma}
+                        desarrolloEspecial={desarrolloEspecial}
+                        tipoProyecto={tipoProyecto}
+                    />
+                    <TiendaDosPDF
+                        adicionales={adicionales}
+                        numeroPaginas={numeroPaginas}
+                        descripcionCatalogo={descripcionCatalogo}
+                        cantidadCatalogo={cantidadCatalogo}
+                        cantidadIdioma={cantidadIdioma}
+                        descripcionIdioma={descripcionIdioma}
+                        desarrolloEspecial={desarrolloEspecial}
+                        tipoProyecto={tipoProyecto}
+                    />
 
+                </>
+                )}
+                <EquipoPDF />
                 <ValorPropuesta price={price} moneda={moneda} />
                 <TerminosPDF />
-                <TerminosDosPDF />
             </div>
 
             {/* <button onClick={handlePrint}>Imprimir</button> */}

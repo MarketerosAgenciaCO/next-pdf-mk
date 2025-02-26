@@ -24,6 +24,7 @@ export default function PdfGenerator() {
             if (page) {
                 const canvas = await html2canvas(page, {
                     scale: 1.2,
+                    useCORS: true,
                 })
                 const imageData = canvas.toDataURL('image/png')
 

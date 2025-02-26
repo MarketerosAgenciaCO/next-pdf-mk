@@ -1,8 +1,9 @@
+import { FooterPDF } from "./footer-logo"
 import Image from 'next/image'
 
-import Portada from '../../../public/pdf/portada.png'
+import Equipo from '../../../public/pdf/equipo.png'
 
-export function PortadaPDF() {
+export function EquipoPDF() {
     return (
         <div
             // style={{
@@ -11,7 +12,8 @@ export function PortadaPDF() {
             // }}
             className="relative bg-white page"
         >
-            <Image src={Portada} className="w-full" alt="Portada" />
+            <Image src={Equipo} className="w-full" alt="Equipo" />
+            
         </div>
     )
 }

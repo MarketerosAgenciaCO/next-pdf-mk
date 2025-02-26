@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import Trayectoria from '../../../public/pdf/trayectoria.jpg'
+import Trayectoria from '../../../public/pdf/trayectoria.png'
 
 export function TrayectoriaPDF() {
     return (

@@ -78,6 +78,85 @@
     }
 }
 
+@layer components {
+    .custom-list-big {
+      @apply list-none pl-0;
+    }
+  
+    .custom-list-big li {
+      @apply relative pl-6;
+    }
+  
+    .custom-list-big li::before {
+      content: "•";
+      @apply absolute left-0 top-[10px] -translate-y-1/2 text-2xl text-white opacity-50;
+    }
+  }
+  
+.custom-list-gris li::before {
+    background-image: url('/pdf/flecha-gris.png'); /* Primera imagen */
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .custom-list-azul li::before {
+    background-image: url('/pdf/flecha-azul.png'); /* Segunda imagen */
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .custom-list-gris,
+  .custom-list-azul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .custom-list-gris li,
+  .custom-list-azul li {
+    position: relative;
+    padding-left: 24px; /* Espacio para la imagen */
+  }
+  
+  .custom-list-gris li::before,
+  .custom-list-azul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+   
+  .custom-list-gris-sub li::before {
+    background-image: url('/pdf/flecha-gris.png'); /* Segunda imagen */
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .custom-list-gris-sub {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .custom-list-gris-sub li {
+    position: relative;
+    padding-left: 20px; /* Espacio para la imagen */
+  }
+  
+  .custom-list-gris-sub li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
 .page {
     width: 297mm;
     height: 210mm; /* altura completa de la página */

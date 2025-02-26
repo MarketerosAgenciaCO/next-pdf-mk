@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import html2pdf from 'html2pdf.js'
+//import html2pdf from 'html2pdf.js'
 import { useToast } from '@/components/ui/use-toast'
 import { Form } from '@/components/ui/form'
 import ClientInfo from './client-info'
@@ -136,6 +136,8 @@ export default function QuoteForm({ prices }: { prices: Prices }) {
             // }
 
             // const filename = projectNameMap[values.tipoProjecto]
+            // 🔥 Importamos `html2pdf.js` solo en el cliente
+        const html2pdf = (await import("html2pdf.js")).default;
 
             const options = {
                 margin: 0,

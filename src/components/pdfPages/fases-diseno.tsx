@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import Fases from '../../../public/pdf/fases.jpg'
+import Fases from '../../../public/pdf/fases.png'
 
 export function FasesDisenoPDF() {
     return (
